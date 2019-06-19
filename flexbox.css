@@ -1,0 +1,18 @@
+.container{
+  width: 100%;
+  display: flex;
+  display: flexbox;
+}
+
+.box{
+  width: 400px;
+  height: 400px;
+  text-align: center;
+  font-size: 100px;
+  font-weight: bold;
+  font-family: sans-serif;
+}
+
+.red{
+  background-color: red;
+}

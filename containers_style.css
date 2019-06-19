@@ -1,0 +1,29 @@
+.containers{
+  width: 900px;
+  float: right;
+  border: 5px solid black;
+  display: flex;
+  display: flexbox;
+  flex-direction: column-reverse;
+}
+
+}
+.box{
+  width: 400px;
+  height: 400px;
+  text-align: center;
+  font-size: 80px;
+  font-weight: bold;
+  font-family: sans-serif;
+}
+.red{
+  background-color: red;
+}
+
+.green{
+  background-color: green;
+}
+
+.yellow{
+  background-color: yellow;
+}

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+  <html>
+
+<h1> RETURNING VALUES</h1>
+
+<p>We don't want this visual to confuse you. This is just showing some different variables (which you'll see in the code during the video), and what values those variables have been assigned in the computer's memory.
+So in the above example, the table says that there are two global variables, named emily and distance. And it says that emily refers to a turtle object, while distance refers to the number 50.
+In the video, we'll show both the tables and the code that they go with. That can be a lot of information to look at all at once, so it may help to pause the video here and there to give yourself time to look everything over.</p>
+
+<ol>
+  <li> a function is machine that serves a particular purpose</li>
+  <li> the draw square function is a machine for drawing square</li>
+  <li>when ever we want to draw a square we can CALL that function and it will draw us one ==  draw_sqaure()</li>
+  <li>some of our functions need imputes to work</li>
+  <li>for instance the polygon function need us to give it a number of sides and a length for those side == polygon(5, 100) </li>
+  <li>the above polygon will have 5 sides and will go 100 pixels or lengths</li>
+  <li>machine have outputs to</li>
+  <li>the range function doesnt just compute the range it returns the code the calls it back to the function</li>
+  <li>a function that returns a value can be used in an expression</li>
+  <li>when python evaluates that function it calls that function and uses the value it returns</li>
+  <li>when python runs this function :  sides = range(10) - python goes and runs the range functions and gives it the number 10 as an impute </li>
+  <li>the range function then returns an range from zero to nine output </li>
+  <li>this gets stuffed into the sides variable in which we can then use with a for loop === for side in sides:  do something</li>
+  <li>we can make functions that provide a value like this too</li>
+  <li>the way we do it is by using a special statement in the function definition</li>
+  <li>the RETURN STATEMENT</li>
+  <li>any value we have inside of a function in a local variable we could return to the code that called that function</li>
+  <li>here we have some function definition and some code that calls that function definition</li>
+  <li>def times_ten(number: return number * 10) this is the function DEFINITION</li>
+  <li>distnace = times_ten(5) - this is the code that calls that DEFINITION</li>
+  <li>so what the code is doing is taking the number 5 and passing it through the function labelled (number)</li>
+  <li>this number then takes 5 times it by 10 and returns 50 - </li>
+  <li>the 50 is then assigned to the distance variable</li>
+  <li>then the vairable emily.forward(distance) will run it by whatever number is in the distance variable in this case (50)</li>
+  <li>when a functions returns a value - the returned value becomes the returned value of the function call expression</li>
+</ol>
+
+<ul>
+  <li>his may seem complicated, but the basics of a return statement are actually very simple. For example, here is a function that simply returns the number 10:</li>
+  <li>def simple_function():  return 10</li>
+  <li>distance = simple_function()</li>
+  <li>When we say that it "returns the number 10" what we mean is this: This code works the same as if the function call, simple_function(), were replaced by the number 10.</li>
+  <li>in other words -- distance = simple_function() is the same as .. distance 10</li>
+  <li>let say you have :  def sqaure(number): return number * number</li>
+  <li>codeL marissa = turtle.Turtle() /  distance = square(8) // marissa.forward(distance)</li>
+  <li>what will it return</li>
+  <li>IT WILL CREATE A TURTLE AND HAVE IT GO FORWARD (64) pixels</li>
+  <li>8 will be placed in number field / then ruturn will take this number and multiple by number again - becuase nothing was defined only the WORD NUMBER</li>
+
+<p>import turtle
+t = turtle.Turtle()
+t.color("white")
+t.width(5)
+t.speed(0)
+t.hideturtle()
+
+def square(number):
+    return number * number
+
+
+for n in range(540):
+    angle = square(n)
+    t.right(angle + .5)
+    t.forward(5)</p>
+
+<h1> this is what you use to make your ROCK PAPER SCISSOR</h1>
+<p>import turtle
+t = turtle.Turtle()
+t.color("white")
+t.width(5)
+t.speed(0)
+t.hideturtle()
+
+def square(number):
+    return number * 260  -  ** PLAY WITH THIS NUMBER
+
+
+for n in range(540):
+    angle = square(n)
+    t.right(angle + .5)
+    t.forward(15)  - *** PLAY WITH THIS NUMBER
+</p>
+
+<h1> this is used to make rock paper scissor- to tell it to return a function if number change<
+<p>  def oddity(number): # if you put # 4 it returns even
+    #add and if statement</h1>
+      if num % 2 == 0:
+      #add return statement what you want it to show if number is equal to 2
+      return "even"
+    #then add Else STATEMENT
+    else:
+      return "odd"  # so if your number is 1 it will return odd
+  </p>
+  <p>
+    def mystery():
+    for word in ["love", "peace", "kittens"]:
+        return word
+    return "doom" # doom is dead code
+    this will return the word LOVE it pull first order
+  </P>
+  <p>
+    import turtle
+
+def bead_color(num):
+    if num % 3 == 0:
+        return "red"
+    if num % 3 == 1:
+        return "green"
+    if num % 3 == 2:
+        return "blue"
+
+
+def bead(tur):
+    tur.right(75)
+    for _ in range(12):
+        tur.forward(10)
+        tur.left(30)
+    tur.left(75)
+
+t = turtle.Turtle()
+t.speed(0)
+t.width(2)
+
+# Move to the left before starting.
+t.penup()
+t.back(200)
+t.pendown()
+
+# Draw ten beads.
+for n in range(10):
+    t.color(bead_color(n))
+    bead(t)
+    t.forward(40)
+by adding a sequence : 3 % == 1 or 3 % 2 your telling the function to rotate the bead_color</p>
+<p>
+  or you can write it by nesting the functions
+
+  def bead_color(num):
+    if num % 3 == 0:
+        return "red"
+    else:
+        if num % 3 == 1:
+            return "green"
+        else:
+            return "blue"
+  becuase you only added 1 it knows that third if whatever is simple_function
+</p>
+<p>
+  calling a function with differnt loops to change direction
+
+  import turtle
+
+def star(color, sides, length, angle, distance):
+    galileo = turtle.Turtle()
+    galileo.color(color)  # colorful!
+    galileo.width(5)  # visible!
+    galileo.speed(0)  # fast!
+    galileo.penup()
+    galileo.left(angle)  # away from center
+    galileo.forward(distance)
+    galileo.pendown()  # start drawing
+    for side in range(sides):
+        galileo.forward(length)
+        galileo.left(720 / sides)
+    galileo.hideturtle()  # just the star
+
+for angle in [180, 135, 90, 45, 0]:
+    star("red", 5, 50, angle, 100)
+for angle in [180, 135, 90, 45, 0]:
+    star("yellow", 5, 20, angle, 60)
+for angle in [180, 135, 90, 45, 0]:
+    star("cyan", 5, 10, angle, 30)
+    # by changing the angle each time you create it moving
+
+  </p>
+  <p> ADDING more
+  for angle in [385, 255, 215, 180, 135, 90, 45, 0]:
+    star("violet", 5, 50, angle, 100)
+
+for angle in [385, 255, 215, 180, 135, 90, 45, 0]:
+    star("cyan", 5, 30, angle, 60)</p>
+
+<h1> RANDOM CHOICE AND RANDOM INT</h1>
+
+<p>o use the function, we simply call it and pass it a list—in this case, a list of colors. The function then returns a random item from the list. If we want to capture that returned value, we can assign it to a variable, like with color, above.
+<li>  color = random.choice(["red", "green", "blue"])
+  random.CHOICE</li>
+
+<li>  cards = ["ace", 2, 3, 4, 5, 6, 7, 8, 9, "jack", "queen", "king"]
+my_card = random.choice(cards)</li>
+Here, we first assign a list to the variable cards, and then pass this to the random.choice function. It then returns an item from the list, which gets assigned to the my_card variable.
+</p>
+<p>
+  randint stands for "random integer", because that's exactly what it does—it returns a random integer. Here's an example:
+<li>die_roll = random.randint(1, 6)</li>
+s you can see, the function takes two arguments: the lower and upper bounds. It will then return a number at random from within that range. The function call above will generate a random number from 1 through 6—just like rolling a six-sided die.
+
+</p> Comparison Operators
+<li>a == b
+Is a equal to b?
+a < b
+Is a less than b?
+a > b
+Is a greater than b?
+a <= b
+Is a less than or equal to b?
+a >= b
+Is a greater than or equal to b?
+a != b
+Is a not equal to b?
+All of these can be used in an if statement.</li>
+<li>
+  import turtle
+
+def temperature_color(temp):
+    # Change this code!
+    if temp < 20:
+        return "blue"
+    if temp < 50:
+        return "violet"
+    if temp < 80:
+        return "red"
+    return "green"
+
+def draw_temperature(temp):
+    t = turtle.Turtle()
+    t.penup()
+    t.back(100)
+    t.width(20)
+    t.pendown()
+    for n in range(temp):
+        t.color(temperature_color(n))
+        t.forward(1)
+
+def draw_therm_box():
+    t = turtle.Turtle()
+    t.speed(0)
+    t.color("gray")
+    t.penup()
+    t.back(120)
+    t.pendown()
+    t.left(90)
+    for side in [20, 240, 40, 240, 20]:
+        t.forward(side)
+        t.right(90)
+    t.hideturtle()
+
+draw_therm_box()
+draw_temperature(120)</li>
+
+<li>
+  import turtle
+t = turtle.Turtle()
+t.width(100)
+
+coins = 1000  # make sure this matches
+rich = coins >= 1000
+if rich:
+    t.color("gold")
+else:
+    t.color("silver")
+
+t.forward(10)
+</li>
+
+<h1> ELIF STATEMENTS</h1>
+<li>mport turtle
+riley = turtle.Turtle()
+riley.width(5)
+
+if mood == "happy":
+    riley.color("yellow")
+elif mood == "angry":
+    riley.color("red")
+elif mood == "sad":
+    riley.color("purple")
+else:
+    riley.color("gray")
+for sides in range(5):
+    riley.forward(100)
+    riley.left(140)
+riley.hideturtle()</li>

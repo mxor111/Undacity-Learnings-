@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+<head> using fizz buzz patterns </head>
+  <body>
+  div = "green":
+  </body>
+
+<h1> Setting it up</h1>
+<ul>
+  <li>First  write "import turtle"
+  <li>First you have to set up the definitions of the turtle</li>
+  <li>
+  def fizz(tur)
+  tur.color("red")
+  tur.left(90)</li>
+  <li>then you add a for statement</li>
+  <li> for side in [10, 20, 20, 20, 10]:</li>
+  <li> then add you vairable : tur.forward(side)  and tur.right(90)<li>
+  <li> then you repeat for next Turtle "def"</li>
+  <li> def buzz(tur):  A green hexagonal bead.
+    # Fits inside the red bead.</li>
+  <li>tur.color("green")</li>
+  <li>tur.left(60)</li>
+  <li>add a for statement: for side in range (6): </li>
+  <li>add variable tur.forward(10), tur.right(60), tur.right(60) ** remember to indent back last line</li>
+  <li>then create third DEF - for when it does not equal to anything</li>
+  <li>def plain(tur)</li>
+  <li>#gray octagonal bead - add vairable tur.color("grey")</li>
+  <li>tur.left(90)</li>
+  <li>add for loop - telling it what to do at the loop</li>
+  <li>for side in [4, 8, 8, 8, 8, 8, 8, 8, 4]:</li>
+  <li>give vairable tur.forward(side),  tur.right(45), tur.right(45)** remeber to indent back this last line</li>
+  <li>next set up turtle to draw the pattern - in this case beads</li>
+  <li>t = turtle.turtle(), t.speed(), t.width(), t.penup(), t.back(180), t.pendown()</li>
+  <li> then add a "for" loop</li>
+  <li>for num in range(16)</li>
+  <li> use your "if: statements here"  if num % 3 == 0:</li>
+  <li>tell it below of for loop what you want it to do example: fizz(t)</li>
+  <li>add a second line indenting it under the first "if"statement </li>
+  <li>if number % 5 == 0: buzz(t)</li>
+  <li> add and else statement so you can tell it what to do if it is not divided by the number 3 or 5</li>
+  <li>else: if num % 5 == 0: buzz(t)</li>
+  <li>add a second else statement indented under this:</li>
+  <li>else: plain(t)</li>
+</ul>
+<p>
+  Send Feedback
+
+The rules
+Before you start coding, let's make sure the basic idea of Fizz Buzz is clear. You count up through a series of numbers (0, 1, 2, 3, 4, 5 ... ) and for each number:
+If the number is evenly divisible by 3, you say "Fizz"
+If the number is evenly divisible by 5, you say "Buzz"
+If the number is evenly divisible by both 3 and 5, you say "FizzBuzz"
+What does "evenly divisible" mean?
+When we say "evenly divisible", we just mean that we can divide the one number by the other and not get any remainder.
+For example, 6 is evenly divisible by 3. We can think of 6 as 3 + 3, so if we divide it by 3 there isn't going to be any remainder left over.
+In contrast, 7 is not evenly divisible by 3. We can think of 7 as 3 + 3 + 1. So if we divide it up into groups of 3, we still have that extra 1 left over.
+Question 1 of 4
+Three students are trying to play Fizz Buzz. Which one got it right?
+
+Alice says, "1, 2, fizz, 4, 5, fizz, 7, 8, fizz, buzz, 11, 12, 13, 14, fizzbuzz."
+
+Bob says, "1, 2, fizz, 4, buzz, fizz, 7, 8, fizz, buzz, 11, buzz, 13, 14, fizzbuzz."
+Carla says, "1, 2, fizz, 4, buzz, fizz, 7, 8, fizz, buzz, 11, fizz, 13, 14, fizzbuzz."
+Submit
+Question 2 of 4
+Here are some numbers. Match them up according to the Fizz Buzz rules!
+"FizzBuzz"
+3
+5
+Number
+What you would say
+3
+"Fizz"
+4
+4
+5
+"Buzz"
+6
+"Fizz"
+15
+"FizzBuzz"
+Submit
+Question 3 of 4
+In order to write the Fizz Buzz code, we are going to need some way of identifying whether a number is evenly divisible by 3 or 5 (or neither). How are we going to do that?
+The trick is to use the modulo operater %. To see how that works, let's take the same numbers from the exercise above, and try doing % 3 on those numbers. What results do you get for each?
+Submit to check your answer choices!
+Modulo operation
+Result (remainder)
+3 % 3
+0
+4 % 3
+1
+5 % 3
+2
+6 % 3
+0
+15 % 3
+0
+Submit
+If we put this in an if statement, we can do something like this:
+if x % 3 == 0:
+    # Code here for whatever you want to do when numbers are evenly divisible by 3.
+Whatever code you place inside this if statement will only get run when the number assigned to x is evenly divisible by 3. And of course, you can create a similar statement to check whether a number is divisible by 5.
+Question 4 of 4
+Here are some tricky ones!
+Suppose that we set x equal to 15 (which is divisible by both 3 and 5).
+For each of these pieces of code, what will happen?
+Submit to check your answer choices!
+Code
+Does it work?
+if x % 5 == 0:
+    # Buzz
+Buzz
+if x % 3 == 0:
+    # Fizz
+else x % 5 == 0:
+    # Buzz
+Fizz
+if x % 3 == 0:
+    # Fizz
+    if x % 5 == 0:
+        # Buzz
+FizzBuzz
+if x % 5 == 0:
+    # Buzz
+    if x % 3 == 0:
+        # Fizz
+BuzzFizz
+Submit
+This and that
+Notice that the last two options in the above exercise were both nested if statements. This is one way we can check for a number that is divisible by both 3 and 5:
+if x % 3 == 0:
+    # Fizz
+    if x % 5 == 0:
+        # Buzz
+First, we check if the number is divisible by 3. If it's not, then the whole structure gets skipped over (none of the code inside gets run!). But if the number is divisible by 3, then it will also check whether the number is divisible by 5.
+Nested statements are often difficult to wrap your brain around—so it's normal to struggle with these when you're first learning. But they do get easier with practice!
+And now, with turtles!
+OK, so now let's do a version of Fizz Buzz using turtles, like Kelly and Karl showed in the video. Your goal is to make a string of beads that looks like this:
+
+There are 16 beads here, numbered 0 through 15. Notice the pattern:
+If the number is divisible by 3, then the bead is red (a "Fizz").
+If the number is divisible by 5, then the bead is green (a "Buzz")
+If the number is divisible by 3 and 5, then there's a green bead in a red bead (a "FizzBuzz")
+In the workspace, you'll see that there's already code for drawing a string of 16 beads (numbered 0 through 15).
+You'll also see that there's a fizz function for drawing red beads, and a buzz function for drawing green beads.
+Task List
+
+Run the code to see what it does.
+
+Inside the for loop, add if / else statements that check if the current num is divisible by 3 or 5. You'll probably need to use some nesting here.
+
+Inside the if statements, call the fizz or buzz functions.
+
+Compare your result with the picture above. Did you get the same pattern?
+16_fizzbuzz.py
+
+
+
+26
+        tur.forward(side)
+27
+        tur.right(45)
+28
+    tur.right(45)
+29
+​
+30
+# Set up the turtle to draw beads.
+31
+t = turtle.Turtle()
+32
+t.speed(0)
+33
+t.width(2)
+34
+t.penup()
+35
+t.back(180)  # Back up to make room!
+36
+t.pendown()
+37
+​
+38
+
+for num in range(16):
+39
+
+    if num % 3 == 0:
+40
+        t.color("red")
+41
+        fizz(t)
+42
+
+        if num % 5 == 0:
+43
+            t.color("green")
+44
+            buzz(t)
+45
+
+    else:
+46
+
+        if num % 5 == 0:
+47
+            buzz(t)
+48
+
+        else:
+
+
+49
+            plain(t)
+50
+
+51
+   # Advance to the next bead spot.
+52
+    t.color("gray")
+53
+    t.forward(22)
+54
+t.hideturtle()
+55
+​
+
+
+
+
+
+Menu
+
+full screen
+Expand
+
+
+
+
+
+
+
+
+
+
+
+⚠️ Spoiler alert!
+Our solution is below. You'll learn more effectively if you give the exercise a strong effort before comparing your code with ours!
+
+
+Solution
+import turtle
+
+def fizz(tur):
+    # A red square bead.
+    tur.color("red")
+    tur.left(90)
+    for side in [10, 20, 20, 20, 10]:
+        tur.forward(side)
+        tur.right(90)
+
+def buzz(tur):
+    # A green hexagonal bead.
+    # Fits inside the red bead.
+    tur.color("green")
+    tur.left(60)
+    for side in range(6):
+        tur.forward(10)
+        tur.right(60)
+    tur.right(60)
+
+def plain(tur):
+    # A gray octagonal bead.
+    tur.color("gray")
+    tur.left(90)
+    for side in [4, 8, 8, 8, 8, 8, 8, 8, 4]:
+        tur.forward(side)
+        tur.right(45)
+    tur.right(45)
+
+# Set up the turtle to draw beads.
+t = turtle.Turtle()
+t.speed(0)
+t.width(2)
+t.penup()
+t.back(180)  # Back up to make room!
+t.pendown()
+
+for num in range(16):
+    if num % 3 == 0:
+        fizz(t)
+        if num % 5 == 0:
+            buzz(t)
+    else:
+        if num % 5 == 0:
+            buzz(t)
+        else:
+            plain(t)
+
+    # Advance to the next bead spot.
+    t.color("gray")
+    t.forward(22)
+t.hideturtle()
+</p>
+<p>
+  import turtle
+
+def fizz(tur):
+    # A red square bead.
+    tur.color("magenta")
+    tur.left(90)
+    for side in [10, 20, 20, 20, 10]:
+        tur.forward(side)
+        tur.right(90)
+
+def buzz(tur):
+    # A green hexagonal bead.
+    # Fits inside the red bead.
+    tur.color("yellow")
+    tur.left(60)
+    for side in range(6):
+        tur.forward(10)
+        tur.right(60)
+    tur.right(60)
+
+def plain(tur):
+    # A gray octagonal bead.
+    tur.color("blue")
+    tur.left(90)
+    for side in [4, 8, 8, 8, 8, 8, 8, 8, 4]:
+        tur.forward(side)
+        tur.right(45)
+    tur.right(45)
+
+# Set up the turtle to draw beads.
+t = turtle.Turtle()
+t.speed(0)
+t.width(2)
+t.penup()
+t.back(180)  # Back up to make room!
+t.pendown()
+
+for num in range(16):
+    if num % 3 == 0:
+        t.color("magenta")
+        fizz(t)
+        if num % 5 == 1:
+            t.color("yellow")
+            buzz(t)
+    else:
+        if num % 5 == 1:
+            buzz(t)
+        else:
+            if num % 3 == 0:
+                plain(t)
+
+   # Advance to the next bead spot.
+    t.color("blue")
+    t.forward(18)
+t.hideturtle()
+</p>
+<p>That "Fizz Buzz" exercise you just did may have seemed a little silly, but it's actually commonly used as an interview question for software engineering job candidates. It's usually done by having the program display numbers and words in text form — but the turtle version here is mathematically equivalent to that.
+It's considered a pretty challenging interview question. Many computer science graduates don't succeed at it. Putting an if statement, with a modulo operator, inside a for loop, is actually quite a bit of complexity!
+Compound statements reference sheet
+You've now learned a few different types of compound statements. You can download a reference sheet for these here, or by going to the Resources tab (on the left) at any time.
+
+Ask peers or mentors for help in </p>

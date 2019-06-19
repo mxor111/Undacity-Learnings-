@@ -1,0 +1,51 @@
+body {
+  font-family:sans-serif;
+  font-style:italic;
+  background-color: rgb(230, 255, 255);
+  border: 1px solid black;
+  width:400px;
+  height:700px;
+  padding: 25px;
+  flex-wrap: nowrap;
+  margin: auto;
+
+}
+
+h3 {
+  color: #00997a;
+  font-size: 25px;
+}
+<link rel="stylesheet" href="polar animal card.css"</link>
+
+p {
+  font-family:sans-serif;
+  width:100px;
+  height:100px;
+
+}
+
+div{
+  border: 1px solid black;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-end: 0px;
+
+}
+
+ul {
+  display: block;
+  list-style-type:disc;
+  margin-block-start: .20em;
+  margin-block-end: .20em;
+  margin-inline-end: 0px;
+  padding-inline-start: 0px;
+  padding-left: 0;
+
+
+}
+li {
+  font: bold 12pt sans-serif;
+  list-style: none;
+  padding-left: 0;
+
+}

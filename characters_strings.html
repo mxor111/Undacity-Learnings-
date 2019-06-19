@@ -1,0 +1,372 @@
+<!DOCTYPE HTML>
+HTML
+
+<h1> LEARNING PYTHON -  COUNTING VARIABLES AND STRINGS </h1>
+
+<p>
+print("""
+"Is it very long?" Alice asked, for she had heard a good deal of poetry that day.
+
+"It's long," said the Knight, "but it's very, very beautiful."
+""")</p>
+<p>
+Our code from the last page works fine, but it's not very flexible—currently, it only checks for the letter o in a specific string ("bonobos"). If we wanted to check other characters and other strings, we would have to re-write the code each time.
+Instead, it would be good to modify it so that we can give it any character and any string.
+We did something similar in an earlier lesson, when we created some specific code for drawing a square—but then decided it would be more useful if the code could draw any polygon. The solution in that case was to turn the code into a function—and that's the solution here as wel</p>
+
+<p> writing the code to check multiple strings and characters:</p>
+
+
+<li>
+count = 0
+
+for ch in "bonobos":
+    count = 0
+    if ch == "o":
+        count = count + 1
+def count_character(character, string):
+    count = 0
+    for ch in string:
+        if ch == string:
+            count = count + 1
+    return count
+print("Should print a count of 3:")
+print(count_character("oxen and foxen all live in boxen", "x"))
+
+print("Should print a count of 0:")
+print(count_character("that letter isn't here", "x"))
+
+print("Should print a count of 9:")
+print(count_character("the goofy doom of the balloon goons", "o"))
+
+print("Should print a count of 6:")
+print(count_character("papa pony and the parcel post problem", "p"))
+
+print("Should print a count of 0:")
+print(count_character("this bunch of words has no", "e"))</li>
+
+<h1> INDEXING -  or Subscript  or scubscript expressing or indexing operatpr  or subscript operator <strong> all mean the same thing</storng></h1>
+  <p>
+    here may be a lot of words to describe it, but the underlying idea of indexing is simple: It's just a way to give a number to each item in a sequence, so that you can tell Python which item you're referring to.
+It's no different from saying something like, "Hey Python, give me the fourth item in that list." or "Hey Python, give me the second character in that string."
+Note that indexes start at 0, not 1. So the first item in a sequence would have an index of 0, while the second would have an index of 1, the third an index of 2, and so on.</p>
+
+<p>
+  ou can also use negative numbers as indexes. If word is a string, then word[-1] is the last character of that string, and word[-2] is the second-last, and so forth.</p>
+
+  <li>
+    ["a", "b", "c"][0] -  will print "a"</li>
+  <li>
+    colors = ["red", "orange". "green"]
+    colors[1]  - will print orange </li>
+  <li>
+    dinner = "falafels"
+    dinner[4] -  wil print F</li>
+  <li>
+    ** you can use negative expressions to get number or placement as well</li>
+  <li>
+    word = fish
+    word[-2]
+    word[2] - these give same results  -2 is counting backwards</li>
+
+  <h3>detrmine is statement is true or false </h3>
+  <li>
+     s = "Karl"
+     s[0] == "k" </li>
+     <li> we are asking if s equal to  k - if so statement is TRUE</li>
+
+  <li>
+    s = "abe"
+    s[0] == "k" -  will return false  because s does not equal to
+
+  <li>
+    >>> len("Karl") == len("Kelly") -  will be false  because karl does not equal kelly</li>
+  <li>
+    >> len("Karl") + 1 == len("Kelly") - will return TRUE - beacuse we ask to add 1 value</li>
+
+  <h1> SLICING</h1>
+
+  <li> name = input("What's your name?\n\n")
+print(f"\nHi, " + name + "! It's very nice to meet you.\n")
+color = input("What's your favorite color?\n\n")
+print(f"\nAh, " + color + ", what a lovely color!")
+</li>
+<li> USING F-STRINGS</l1>
+  <li> long = "orange"
+short = "oran"
+
+def starts_with(long, short):
+    return long[0:len(short)] != short
+
+print(starts_with("apple", "app"))
+# A call like this should return True:
+# print(starts_with("apple", "app"))
+
+# And one like this should return False:
+# print(starts_with("manatee", "mango"))</li>
+
+<li> def starts_with_v1(long, short):
+    for position in range(len(short)):
+        if long[position] != short[position]:
+            return False
+    return True</li>
+
+<li>def starts_with_v2(long, short):
+    length = len(short)
+    beginning = long[0 : length]
+    if beginning == short:
+        return True
+    else:
+        return False</li>
+
+<li>def starts_with_v3(long, short):
+    return long[0:len(short)] == short</li>
+
+  <li> Specifically, it is available as a built-in method called startswith. Remember, a method is simply a function that is associated with a specific object. Like when we used turtles earlier, the forward method was always associated with a specific turtle, as in amy.forward(100).</li>
+
+  <li>
+    # here how we would use the STARTSWITH METHOD IN Python
+    >>> "banana".startswith("ban")
+True
+>>> "bonobo".startswith("ban")
+False</li>
+<p>
+Many string methods, like startswith and endswith, are predicates — which means that they return True or False to indicate something about the string.
+You can use predicates in if statements. For example, here's some code that checks a string for angle brackets (like you would see in an HTML tag):
+</p>
+<li>
+  def possible_tag(word):
+    if word.startswith("<") and word.endswith(">"):
+        print(word, "could maybe be an HTML tag")
+    else:
+        print(word, "is definitely not an HTML tag (but might contain one)")
+
+    </li>
+
+    <li>def count_character(string, target):
+    index = 0
+    total = 0
+    while index < len(string):
+        if string[index] == target:
+            total += 1
+        index += 1
+    return total
+
+    print(count_character("bononboz. " bo")
+  </li>
+<p>
+  BREAKING A LOOP .  you can use  CRTL C   or Break statements
+
+
+  def no_repeating():
+  words = []
+  while True:
+      word = input("Tell me a word: ")
+      if word in words:
+          print("You told me that word already!")
+          break
+      words.append(word)
+  return words
+
+</p>
+<h1>  USE SUBDTRINGS TO SEARCH DATA</h1>
+
+<li>
+  Locating a substring
+When we search a string for substrings, we'll use index numbers to describe where the substring is found. For instance, if we search for 'ook' in 'cookbook', we'll say that it's found at positions 1 and 5. This means that if we take a slice of length 3 starting from one of these positions, we'll see that substring:</li>
+
+<li>
+  Writing an is_substring function
+Our first goal will be to write a function, is_substring, that simply checks whether one string is a substring of another. If the first string is a substring of the other, it should return True; otherwise, it should return False. Like this:</li>
+<li>
+  OK, so our function will go through each position in the string, and check if the slice starting at that position is equal to the substring:
+  OK, so our function will go through each position in the string, and check if the slice starting at that position is equal to the substring:</li>
+<li>
+  >>> string = 'waffles'
+>>> substring = 'ff'
+>>> string[0 : 0 + len(substring)] == substring
+False
+>>> string[1 : 1 + len(substring)] == substring
+False
+>>> string[2 : 2 + len(substring)] == substring
+True</li>
+
+  <li> define the function so it accepts two parameters</li>
+  <li> loop over the index posisitons in the string</li>
+  <li> at each poistion check if the current slice is equal to the target substring if it is return trus</li>
+  <li> if the loop finshies and the substring has NOT been found return false</li>
+<li>
+  def is_substring(substring, string):
+    index = 0
+    while index < len(string):
+        if string[index : index + len(substring)] == substring:
+            return True
+        index += 1
+    return False</li>
+
+<li>
+  def count_substring(string, target):
+    index = 0
+    total = 0
+    while index < len(string):
+        if string[index: index + len(target)] == target:
+            total += 1
+        index += 1
+    return total
+print(count_substring('love, love, love, all you need is love', 'love'))</li>
+
+<li>
+  def count_substring(string, target):
+    total = 0
+    index = 0
+    while index < len(string):
+        if string[index : index + len(target)] == target:
+            total += 1
+            index += len(target)   # <- This is the key line
+        else:
+            index += 1
+    return total
+
+</li>
+<p>
+  Here's one way to write the locate_first function. We've only had to change a few things from the count_substring function: instead of returning a total, we return the index on a successful match, or the value -1 on no match.</p>
+  <li>def locate_first(string, sub):
+    index = 0
+    while index < len(string):
+        if string[index : index + len(sub)] == sub:
+            return index
+        else:
+            index += 1
+    return -1
+  </li>
+
+  <li>
+    A locate_all function
+Now let's take it one step further and see if we can make a function that locates all instance of a substring. </li>
+
+<li>
+  def locate_all(string, sub):
+    matches = []
+    index = 0
+    while index < len(string):
+        if string[index : index + len(sub)] == sub:
+            matches.append(index)
+            index += len(sub)
+        else:
+            index += 1
+    return matches
+  </li>
+  <li>  USE PYTHON BUILT IN FUNCTIONS</li>
+  <li>  'box in 'box is trouble'  the in operator is looking to see if box is in the sentence returns TRUE</li>
+  <li> '3' in [1,2,3.4] - will search a list and return  TRUE </li>
+  <li> '2, 3' in [1,2.3.4]  this will RETURN FALSE - because it doesnt recognize 2,3 together in the list</li>
+  <li> '2,3' in [1, [2,3], 4]  it will RETURN TRUE </li>
+  <li>  "not true  "will do the reverse,,</li>
+  <li> locate_ first also return position in string where the position in string found</li>
+  <li> locate_first("cad", "abracadbra")   will return (4)  because
+    abracadbra
+    0123456789
+    cad is in the 4 position
+  </li>
+  <li>  you can use PYTHON - FIND </li>
+  <li>'abracadra.find('cad') -  will find the same answer as using locate_first<li>
+  <li> 'abracadabra'.find('wooly mamonth') will return -1 negative because it can not be found</li>
+  <li> USE PYTHON TO COUNT</li>
+  <li> 'badger', 'badger', 'badgermm', badger much'.count('bad')
+  </li>
+  <li> aaaa.count('aa') -  will count the same way as locate_count function we wrote </li>
+  <li>  but count on list counts the number of items - not position</li>
+  <li> [1,2,3,4,5,6,].count(1) -</li>
+  <li>Here are three questions about searching for substrings in a large string variable. Which Python search feature should we use to answer these questions?
+Assume that we've got the entire text of the novel A Tale of Two Cities in a string variable called tale.</li>
+<li>
+  To tell how many times the word occurs, you'll want to count the matches.
+To answer a yes-or-no question, choose the only option that returns a boolean value.
+To find the location of the first occurrence, you'll want to find it.
+</li>
+
+
+<li>
+  lines = ["Haiku frogs in snow",
+         "A limerick came from Nantucket",
+         "Tetrametric drum-beats thrumming, Hiawathianic rhythm."]</li>
+<li>To put these on a web page, we'd like to put an HTML <br> tag between each two lines.
+Write a function breakify that takes a list of strings, and returns a single string with <br> inserted between each two strings in the list. For instance, testing it on the above list should produce this result:</li>
+<li>>> breakify(lines)
+'Haiku frogs in snow<br>A limerick came from Nantucket<br>Tetrametric drum-beats thrumming, Hiawathianic rhythm.'</li>
+<li> SIMPLE WAY TO WRITE THE BREAK FUCNTION</li>
+<li>Here's one way to write breakify, the function that takes a list of strings and returns a single string with HTML line breaks:</li>
+<li>def breakify(strings):
+    return "<br>".join(strings)</li>
+<h3> REPLACING A FUNCTION</h3>
+<p>Find and replace (1/2)
+Sometimes text has stuff in it that you don't want.
+For example, suppose someone gives you some of their HTML code, and you find that it has <br> tags all over the place, even in places where <p> tags would clearly be a better choice. You might want to remove all of the <br> tags, and possibly replace them with <p> tags.
+Or maybe you realize that you've misspelled the same word dozens of times throughout a long paper, and you'd like to replace all of those instances with the correct spelling.
+In fact, this is such a common need that most text editors have a find-and-replace tool that can be used to do such things.
+At this point, we have all the pieces we need to be able to write our own find-and-replace function in Python, and that's what we'll work up to over the next few pages.
+This will also give us the techniques we need to be able to solve the silly strings problem that was introduced way back at the beginning of this lesson.
+Modifying strings
+Generally speaking, what we want to be able to do is loop over a string, find the substring that we don't like, and replace it with a string that we do like!
+But right away we run into a problem: Strings are immutable.
+We cannot change a string once it has been created. But what we can do is take characters or slices from that string, and then use the join method to put them back together to form a new string.
+One particularly useful technique is to use a list to collect the bits of the string that you want to keep. This next question shows a basic example of the approach:</p>
+<li>
+  string = "Hello world!"
+output = [] # creates an emply list
+index = 0  #moves on to the next index number
+while index < len(string):
+    output.append(string[index]) # takes a character from the string and adds it to the end of the list
+    index += 1   #(string[index]) above uses the current index number to select a character from the string
+
+print(output)
+    ### if we ean this code it would output - ['h', 'e', 'l', 'l','o', ' ', 'w', 'o', 'r', 'l', 'd']
+
+  </li>
+  <p>Below is the SPAM! removal code that I came up with. It's similar to the code we just looked at (above), but with some additions to check for—and skip over—the SPAM! substring</p>
+  <li> REMOVING THE WORD SPAM</li>
+  <li> string = 'SPAM!HelloSPAM! worldSPAM!!'
+output = []
+index = 0
+while index < len(string):
+    if string[index:index+5] == 'SPAM!': #this checks the substring starting at the current index position if 'spam'
+        index += 5  # this advances the index so that it skips over 'spam substrings'
+    else:
+        output.append(string[index]) # add non-spam characters to the list
+        index += 1
+print("".join(output))  # this puts the new spam-free string together
+</li>
+
+<li> TESTSTSTT -  Create a function called remove_substring that takes a string and removes all instances of an undesirable substring.
+This will work very much like the SPAM! removal code we just looked, so feel free to reference that code as needed.</li>
+<li>
+  def remove_substring = (string, substring):  # Define the remove_substring function with two parametes (for the main string and substring to be removed)
+  output = [] # create and empyt list to hold the output
+  index = 0 # loop over the index number of Strings
+  while index < len(string): # check if the substring starting at the current postion is the target substring.  if it is jump the index forward to skip over it.
+    if string[index:index+en(substring)] == substring:
+      index += len(substring)
+    else:
+      output.append(string[index])  # otherwise append the current character to the output list and advnace the index by 1
+      index += 1
+  return "".join(output)  # finally join the parts of the list back together to form a new string and return it
+</li>
+
+<p> USING REPLACE INSTEAD -
+  1. change the function name and add a third parameter for the replaement strings
+  2. when the target substring (to be removed) is located append the replacement stirng to the list in its place
+</p>
+
+
+
+  def replace_substring(string, substring, replacement):
+    output = []
+    index = 0
+    while index < len(string):
+        if string[index:index+len(substring)] == substring:
+            output.append(replacement)
+            index += len(substring)
+        else:
+            output.append(string[index])
+            index += 1
+    return "".join(output)

@@ -1,0 +1,1831 @@
+To recap the video, the following steps happen:
+HTML is received
+HTML tags are converted to tokens
+tokens are converted to Nodes
+Nodes are converted to the DOM
+When you request a website, no matter what backend language is powering that website, it will respond with HTML. The browser receives a stream of HTML. The bytes are run through a complicated (but fully documented) parsing process that determines the different characters (e.g. the start tag character <, an attribute like href, a closing angle bracket like >). After parsing has occurred, a process called tokenization. Tokenization takes one character at a time and builds up tokens. The tokens are:
+DOCTYPE
+start tag
+end tag
+comment
+character
+end-of-file
+Let's take a break for a second. At this state, the browser has received the bytes that've been sent by a server. The browser has converted the bytes to tags and has read through the tags to create a list of
+
+This list of tokens then goes through the tree construction stage. The output of this stage is a tree-like structure - this is the DOM!
+I want to point out two important quotes that Illya said in the video:
+a tree structure that captures the content and properties of the HTML and all the relationships between the nodes
+the DOM is the full, parsed representation of the HTML
+So the DOM is a model (representation) of the relationships and attributes of the HTML document that was received. Remember that DOM stands for "Document Object Model". Something that I've found to be true as I've been learning is that to break something down, just read the thing backwards:
+Document Object Model
+...would become…
+Object Model of the Document!
+
+The document object is provided by the browser and is a representation of the HTML document. This object is not provided by the JavaScript language. ECMAScript is the language specification that JavaScript is based on, and it only references the document object model in one place, in its "Global Object" section:
+In addition to the properties defined in this specification the global object may have additional host defined properties. This may include a property whose value is the global object itself; for example, in the HTML document object model the window property of the global object is the global object itself. (source)
+
+Basically, this says that the document object is not part of JavaScript, but is expected to already exist and be freely accessible to JavaScript code.
+The DOM is standardized by the W3C. There are a number of specifications that make up the DOM, here are few:
+Core Specification
+Events Specification
+Style Specification
+Validation Specification
+Load and Save Specification
+To see the full list of DOM specs, check out the standard at: https://www.w3.org/standards/techs/dom#w3c_alln
+
+The DOM stands for "Document Object Model" and is a tree-like structure that is a representation of the HTML document, the relationship between elements, and contains the content and properties of the elements.
+The DOM is not:
+part of the JavaScript language
+The DOM is:
+constructed from the browser
+is globally accessible by JavaScript code using the document object
+The DOM is used all of the time and is what we'll be using throughout this course!
+Further Research
+DOM Introduction
+Section 8.2 Parsing HTML documents from the W3C's HTML Documentation
+DOM Specification on W3C
+HTML Document Object Model mentioned in the ECMAScript Specification - the language specification used by JavaScript
+
+You're probably used to seeing (and writing!) a lot of this kinda stuff:
+.header {
+
+.header {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto
+}
+
+.header.header--clone .header__navbar {
+    height: 4.5rem
+}
+
+.header.header--stick {
+    top: 0;
+    background-color: #ffffff;
+    z-index: 8000;
+    box-shadow: 0px 1px 2px rgba(0,0,0,0.1)
+}
+
+.header__navbar {
+    max-width: 73.75rem;
+    margin-left: auto;
+    margin-right: auto;
+    height: 4.5rem;
+    padding: 0 1.5em
+}
+
+..you know, CSS! The skills that you've learned writing CSS will help you in this section!
+With this in mind, let's make sure that you're comfortable answering the following questions.
+
+answer: #footer {...} using the hastag
+In CSS, you need to use the # at the beginning of the selector to target an element by its ID.
+
+Which of the following will style an element by its class?
+answer: .left-nav {...}  or .id {....}
+
+In CSS, you need to use the . (the period!) at the beginning of the selector to target elements by their class.
+
+Which of the following will style an element by targeting the tag name?
+answer:  p{...}
+In CSS, you target specific elements by their tag name.
+
+So this was a quick review on how to select elements by ID, class, and tag. Believe it or not, being able to select HTML elements this way is actually going to be a vital skill in this section where we learn how to access page elements using JavaScript and the DOM!
+If you struggled a little bit with this section, perhaps you should do a quick review of CSS by reviewing the HTML and CSS course.
+Alrighty - let's get right to it and let the fun begin! 🙌🏼
+
+Let's take a look at how we can use JavaScript and the DOM to gain access to specific elements using their ID attribute.
+Remember the document object from the previous section? Well, we're going to start using it! Remember the document object is an object, just like a JavaScript object. This means it has key/value pairs. Some of the values are just pieces of data, while others are functions (also known as methods!) that provide some type of functionality. The first DOM method that we'll be looking at is the .getElementById() method:
+
+document.getElementById(); -If we ran the code above in the console, we wouldn't get anything, because we did not tell it the ID of any element to get! We need to pass a string to .getElementById() of the ID of the element that we want it to find and subsequently return to us:
+document.getElementById('footer');
+
+One thing to notice right off the bat, is that we're passing 'footer', not '#footer'. It already knows that it's searching for an ID (its name _is_ "getElementById", for a reason!).
+
+If you'd like to read more about this method, check out its documentation page on MDN: https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementById
+
+To recap what we just did:
+we opened the DevTools for the page we were looking at
+we switched to the Console pane
+we ran document.getElementById('content'); on the console
+Running this code cause the document object to search through its entire tree-like structure for the element that has an ID of "content".
+
+n this section, we learned how to select a DOM element by its ID:
+.getElementById()
+There are a couple of important things to keep in mind about this method:
+it is called on the document object
+it returns a single item
+
+/ select the element with the ID "callout"
+document.getElementById('callout');
+
+
+As I'm sure you remember from learning both HTML structure and CSS styling, an ID should be unique - meaning two or more elements should never have the same ID. Since IDs are unique, and since there will be only one element in the HTML with that ID, document.getElementById() will only ever return at most one element. So how would we select multiple DOM elements?
+The next two DOM methods that we'll be looking at that both return multiple elements are:
+.getElementsByClassName()
+.getElementsByTagName()
+Accessing Elements By Their Class
+The first method we'll look at is .getElementsByClassName():
+
+document.getElementsByClassName();
+
+imilarly to .getElementById(), if we ran the code above in the console, we wouldn't get anything, because we did not tell it the class to search for! Also just like .getElementById(), .getElementsByClassName() is expecting that we call it with a string of the class we want it to search for/return:
+
+document.getElementsByClassName('brand-color');
+
+
+so STEPS TO TAKE TO LOOK AT THIS IN CONSOLE:
+
+open up web browser page -
+1. click on whatever element on the page you want to inspect
+2. open the console to the element page - you will see what you clicked on highlight
+3. find the content that is shows CLASS Element; example
+class='highlight-spanned'
+3. in console below type ;
+document.getElementsByClassName('highlight-spanned');
+
+this will return what it finds ;
+4. click the little arrow key to open up and see what it finds
+
+
+Beware of the S!
+I know we haven't looked at .getElementsByTagName() just yet, but there's something different about .getElementById() compared with both .getElementsByClassName() and .getElementsByTagName() that I want to point out because it can be easy to miss; both .getElementsByClassName() and .getElementsByTagName() have an extra "s" in their name.
+The method's name is .getElementsByClassName(), not .getElementByClassName(). Notice the word right in the middle, it's "Elements" not "Element". If you think about it, this actually makes a lot of sense! Since both .getElementsByClassName() and .getElementsByTagName() could return multiple items, their method names tell us that directly. Now compare this with .getElementById() that will only ever return at most one element. Its name has the singular "Element" in it.
+
+document.getElementByClassName('highlight-spanned');
+
+This code above will not work, because there is no DOM method .getElementByClassName() (with singular "Element"). -  IT MISSING THE S in Elements
+
+After looking at both .getElementById() and .getElementsByClassName(), the new .getElementsByTagName() method should seem quite easy on the eyes:
+
+document.getElementsByTagName('p');
+
+
+Selecting Multiple Elements At Once
+As I'm sure you remember from learning both HTML structure and CSS styling, an ID should be unique - meaning two or more elements should never have the same ID. Since IDs are unique, and since there will be only one element in the HTML with that ID, document.getElementById() will only ever return at most one element. So how would we select multiple DOM elements?
+The next two DOM methods that we'll be looking at that both return multiple elements are:
+.getElementsByClassName()
+.getElementsByTagName()
+Accessing Elements By Their Class
+The first method we'll look at is .getElementsByClassName():
+document.getElementsByClassName();
+Similarly to .getElementById(), if we ran the code above in the console, we wouldn't get anything, because we did not tell it the class to search for! Also just like .getElementById(), .getElementsByClassName() is expecting that we call it with a string of the class we want it to search for/return:
+document.getElementsByClassName('brand-color');
+If you'd like to read more about this method, check out its documentation page on MDN: https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementsByClassName
+Let's use this MDN documentation page to try out using this method.
+
+Beware of the S!
+I know we haven't looked at .getElementsByTagName() just yet, but there's something different about .getElementById() compared with both .getElementsByClassName() and .getElementsByTagName() that I want to point out because it can be easy to miss; both .getElementsByClassName() and .getElementsByTagName() have an extra "s" in their name.
+The method's name is .getElementsByClassName(), not .getElementByClassName(). Notice the word right in the middle, it's "Elements" not "Element". If you think about it, this actually makes a lot of sense! Since both .getElementsByClassName() and .getElementsByTagName() could return multiple items, their method names tell us that directly. Now compare this with .getElementById() that will only ever return at most one element. Its name has the singular "Element" in it.
+I just wanted to point this out because I've been bitten by that missing "s" many-a-time when running code like:
+document.getElementByClassName('highlight-spanned');
+This code above will not work, because there is no DOM method .getElementByClassName() (with singular "Element").
+Accessing Elements By Their Tag
+After looking at both .getElementById() and .getElementsByClassName(), the new .getElementsByTagName() method should seem quite easy on the eyes:
+document.getElementsByTagName('p');
+Let's use this MDN documentation page to try out using this method: https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction
+
+Question 1 of 3
+Which of the following would correctly select all elements with class: 'splort'?
+document.getElementsByClassName('splort');
+
+document.getElementsByClassname('splort');
+
+document.getElementsByClassName('.splort');
+
+document.getElementByClassName('splort');
+Submit
+
+
+Write the DOM code to select all <article> elements.
+
+Submit
+
+
+Write the DOM code to select all elements with class: fancy-footer.
+
+document.getElementsByClassName('fancy-footer');
+Reset
+What's Returned?
+
+We just saw that .getElementsByClassName() returns an array-like data structure of elements. But what exactly _is_ an element?
+In the next section, we'll take the plunge and look at Elements and Nodes.
+
+In the next section, we'll take the plunge and look at Elements and Nodes.
+Selecting Multiple Elements At Once Recap
+In this section, we learned two ways to select multiple DOM elements:
+.getElementsByClassName()
+.getElementsByTagName()
+There are a few important things to keep in mind about these two methods:
+both methods use the document object
+both return multiple items
+the list that's returned is not an array
+
+/ select all elements that have the class "accent-color"
+document.getElementsByClassName('accent-color');
+
+// select all "span" elements
+document.getElementsByTagName('span');
+
+
+HOW IT LOOKING AT THE DATA IN Console
+So to reiterate the process, it's:
+characters
+tags
+tokens
+nodes
+DOM
+But what _is_ a "node", exactly?
+
+⚠️ Interface vs User Interface ⚠️
+The word "interface" might be an unclear word right now, and that's ok. I do want to make sure that you're not connecting this "interface" with a user interface (UI) or a graphical user interface (GUI).
+Our use of "interface" is not related to either a UI or a GUI. Our use of "interface" is a technical, computer science word for a list of properties and methods that are inherited.
+Node (with a capital "N"!) is a blueprint that contains information about all of the properties and methods for real nodes (with a lowercase "n"!). If you're not used to them, the words "interface", "property", and "method" can be kind of cryptic at first. Just remember that:
+interface = blueprint
+properties = data
+methods = functionality
+Let's check out Node on MDN: Node Interface on MDN
+
+
+So the Node Interface is a blueprint for all of the properties (data) and methods (functionality) that every real node has after it's been created. Now, the Node Interface has a lot of properties and methods, but it's not very specific...I mean, what _is_ a node???
+Just like "blueprint for a Building" is not as specific as "blueprint for a house" or "blueprint for a skyscraper". These are more-specific blueprints. And these more-specific blueprints would probably have their own properties and methods that are specific to just houses or just skyscrapers.
+This brings us to the "Element Interface".
+Element Interface
+Just like the Node Interface, the Element Interface is a blueprint for creating elements: Element Interface on MDN
+One really important thing about the Element Interface is that it is a descendent of the Node Interface.
+
+One really important thing about the Element Interface is that it is a descendent of the Node Interface.
+
+
+
+Since Element is pointing at Node, this indicates that the Element Interface inherits all of the Node Interface's properties and methods. This means that any element (lowercase "e"!) that was created from the Element Interface is also a descendent from the Node Interface...which means the element (lowercase "e"!) is also a node (lowercase "n"!).
+Let's do a little digging around on an element!
+
+
+Does the .outerHTML property come from the Node Interface or the Element Interface?  -  ANSWER- ElementInterface
+
+
+Which interface does the .id property come from?
+ANSWERT - Element interface
+
+Which interface does the .textContent property come from?
+ANSWER Node Interface
+
+
+o you remember the .getElementsByClassName() method on the document object that we looked at previously? While reviewing the Element interface, you might've noticed that it also has a .getElementsByClassName() method! The Element Interface inherits from the Node Interface, not the Document Interface (yep, there's a Document Interface!). The Element Interface has its own .getElementsByClassName() that does the exact same thing as the one on the document object.
+This means that you can use the document object to select an element, then you can call .getElementsByClassName() on that element to receive a list of elements with the class name that are descendents of that specific element!
+
+
+// selects the DOM element with an ID of "sidebar"
+const sidebarElement = document.getElementById('sidebar');
+
+// searches within the "sidebar" element for any elements with a class of "sub-heading"
+const subHeadingList = sidebarElement.getElementsByClassName('sub-heading');
+
+
+To check out all of the different interfaces, check here: Web API Interfaces
+
+
+ecap
+Hopefully this was an enlightening lesson on a number of fronts! You learned about interfaces, properties, and methods; an interface is like a blueprint, properties are like bits of information or data, and methods are functionality.
+We also looked at a couple of specific interfaces:
+Node Interface
+Element Interface
+We saw that both of these interfaces have properties and methods. We also saw how the Element Interface inherits all of the properties and methods from the Node interface.
+Further Research
+Node Interface
+
+
+
+We've been looking at the:
+.getElementById()
+.getElementsByClassName()
+and .getElementsByTagName()
+Now these DOM methods are standardized. However, not all browsers support every standard. They do now, for these three methods, but there are hundreds of other methods with varying levels of support.
+That's why almost every method on MDN has a Browser compatibility table that lists when each browser started supporting that specific method.
+
+
+
+Thankfully, all browsers have pretty much aligned to support the official standard.
+However, back in the day, that wasn't the case. You had to write different code to perform the same action in different browsers. Then you had to write code to check which browser you were in to run the correct code for that browser. Let me tell you, it was a bit of a nightmare.
+Several JavaScript libraries came along to help mitigate these issues. Let's take a brief look at the jQuery library.
+
+
+Each one of these sets the color to red. The only difference is in the selector; selecting by ID, selecting by class, and selecting by tag. Got it? Good!
+You've already learned the DOM methods to select by ID, class, and tag, too:
+.document.getElementById()
+.document.getElementsByClassName()
+.document.getElementsByTagName()
+Three different methods that do almost the exact same thing. Wouldn't it be awesome if there were a way to do element selecting similar to how CSS does it?
+Wait for it - there is!
+#header {
+    color: 'red';
+}
+
+.header {
+    color: 'red';
+}
+
+header {
+    color: 'red';
+}
+
+The querySelector Method
+We can use the .querySelector() method to select elements just like we do with CSS. We use the .querySelector() method and pass it a string that's just like a CSS selector:
+
+find and return the element with an ID of "header"
+document.querySelector('#header');
+
+// find and return the first element with the class "header"
+document.querySelector('.header');
+
+// find and return the first <header> element
+document.querySelector('header');
+
+⚠️ .querySelector() Returns A Single Element ⚠️
+I want to point out one potentially tricky thing - the .querySelector() method only returns one element. This makes sense if you use it to search for an element by ID. However, even though .getElementsByClassName() and .getElementsByTagName() both return a list of multiple elements, using .querySelector() with a class selector or a tag selector will still only return the first item it finds.
+
+he querySelectorAll Method
+The .querySelector() method returns only one element from the DOM (if it exists). However, there are definitely times when you will want to get a list of all elements with a certain class or all of one type of element (e.g. all <tr> tags). We can use the .querySelectorAll() method to do this!
+
+// find and return a list of elements with the class "header"
+document.querySelectorAll('.header');
+
+// find and return a list of <header> elements
+document.querySelectorAll('header');
+
+Here's the .querySelectorAll() method on MDN: https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll
+
+
+To obtain a NodeList of all of the <p> elements in the document:
+var matches = document.querySelectorAll("p");
+
+This example returns a list of all <div> elements within the document with a class of either note or alert:
+var matches = document.querySelectorAll("div.note, div.alert");
+
+Here, we get a list of <p> elements whose immediate parent element is a <div> with the class highlighted and which are located inside a container whose ID is test.
+var container = document.querySelector("#test");
+var matches = container.querySelectorAll("div.highlighted > p");
+
+
+This example uses an attribute selector to return a list of the <iframe> elements in the document that contain an attribute named data-src:
+var matches = document.querySelectorAll("iframe[data-src]");
+
+Here, an attribute selector is used to return a list of the list items contained within a list whose ID is "userlist" which have a "data-active" attribute whose value is "1":
+var container = document.querySelector("#userlist");
+var matches = container.querySelectorAll("li[data-active='1']");
+
+
+The selector methods accept one or more comma-separated selectors to determine what element or elements should be returned. For example, to select all paragraph (p) elements in a document whose CSS class is either warning or note, you can do the following:
+var special = document.querySelectorAll( "p.warning, p.note" );
+You can also query by ID. For example:
+var el = document.querySelector( "#main, #basic, #exclamation" );
+After executing the above code, el contains the first element in the document whose ID is one of main, basic, or exclamation.
+You may use any CSS selectors with the querySelector() and querySelectorAll() methods.
+
+
+
+you mean descendants, you can use querySelectorAll:
+var descendants = theElement.querySelectorAll("*");
+All modern browsers, and IE8, have querySelectorAll.
+It gives you a NodeList, which is array-like. If you want a true JavaScript array, you can use Array#slice to get it, like this:
+var descendants = Array.prototype.slice.call(theElement.querySelectorAll("*"), 0);
+Example:
+
+
+Write the .querySelectorAll() code to find all paragraph elements that are descendents of elements that have the class: articles
+answer
+document.querySelectorAll('.articles p');
+
+
+Note: the "list" that is returned by .querySelectorAll() is not a JavaScript list, but another type of object called a NodeList. It has a .forEach() method, but it's not supported by all browsers... W/ a NodeList, you're better off just using a regular for loop:
+const allHeaders = document.querySelectorAll('header');
+for(let i = 0; i < allHeaders; i++){
+    console.dir(allHeaders[i]);
+}
+querySelectorAll
+NodeList
+
+Note: the "list" that is returned by .querySelectorAll() is not a JavaScript list, but another type of object called a NodeList. It has a .forEach() method, but it's not supported by all browsers... W/ a NodeList, you're better off just using a regular for loop:
+const allHeaders = document.querySelectorAll('header');
+for(let i = 0; i < allHeaders; i++){
+    console.dir(allHeaders[i]);
+}
+querySelectorAll
+NodeList
+
+A node of nodeType 1 is an ELEMENT_NODE, whereas a node of nodeType 2 is an ATTRIBUTE_NODE. There are 12 types of nodes (see docs for more details).
+
+
+So, we know that Node is an Interface... Just like a (child) class can inherit properties and methods from another (parent) class, an interface can inherit from another interace. So, for example, there is the Element Interface, which inherits from the Node Interface. A specific instance of an Element Node is an element class (e.g., class EL), instances of which are objects of that class (e.g., EL objects). ....
+
+
+Classes and Interfaces in JavaScript
+This got me all a bit flustered, so I began reading about classes, interfaces, and objects in JavaScript.
+A major takeaway is to remember that the DOM is not JavaScript: it is its own thing, and JavaScript in the browser has a system of dealing with that thing. So, independent of JavaScript, the DOM has DOM interaces, etc.
+Another major theme is that, yes, you can technically use design patterns to implement traditional classes and interfaces in JavaScript, but this is through a more-or-less brute force technique known as "Duck Typing." OOP in JavaScript is not traditional OOP; it implements a different approach to OOP called prototype-based OOP. Since this can be alien to developers from traditional OOP backgrounds, some syntactical sugar has been added in ES6 to make class and interface implementation *feel* like traditional OOP (but it is still prototypical OOP underneath the hood
+
+
+
+
+avaScript is a bit confusing for developers experienced in class-based languages (like Java or C++), as it is dynamic and does not provide a class implementation per se (the class keyword is introduced in ES2015, but is syntactical sugar, JavaScript remains prototype-based).
+When it comes to inheritance, JavaScript only has one construct: objects. Each object has a private property which holds a link to another object called its prototype. That prototype object has a prototype of its own, and so on until an object is reached with null as its prototype. By definition, null has no prototype, and acts as the final link in this prototype chain.
+Nearly all objects in JavaScript are instances of Object which sits on the top of a prototype chain.
+While this confusion is often considered to be one of JavaScript's weaknesses, the prototypal inheritance model itself is, in fact, more powerful than the classic model. It is, for example, fairly trivial to build a classic model on top of a prototypal model.
+
+
+OTE: typeof is an operator that returns the name of the data type that follows it:
+typeof "hello" // returns "string"
+typeof true // returns "boolean"
+typeof [1, 2, 3] // returns "object" (Arrays are a type of object)
+typeof function hello() { } // returns "function
+
+
+Using the umbrella example from the previous video, see if you can follow the example open() method and create the close() method. It's alright if you have trouble at first! We'll go into more detail later in this lesson.
+
+var umbrella = {
+  color: "pink",
+  isOpen: false,
+  open: function() {
+    if (umbrella.isOpen === true) {
+      return "The umbrella is already opened!";
+    } else {
+      umbrella.isOpen = true;
+      return "Julia opens the umbrella!";
+    }
+   }
+};
+
+
+
+
+you can take a bunch of variable and store them inside an object using a variable
+
+var sister = {
+  name: "Sarah",
+  age: 23,
+  parents: [ "alice", "andy" ],
+  siblings: ["julia"],
+  favoriteColor: "purple",
+  pets: true
+};
+
+INSTEAD OF WRITING OUT EACH VARIABLE Key and value
+
+The syntax you see above is called object-literal notation. There are some important things you need to remember when you're structuring an object literal:
+The "key" (representing a property or method name) and its "value" are separated from each other by a colon
+The key: value pairs are separated from each other by commas
+The entire object is wrapped inside curly braces { }.
+And, kind of like how you can look up a word in the dictionary to find its definition, the key in a key:value pair allows you to look up a piece of information about an object. Here's are a couple examples of how you can retrieve information about my sister's parents using the object you created.
+
+
+// two equivalent ways to use the key to return its value
+sister["parents"] // returns [ "alice", "andy" ]
+sister.parents // also returns ["alice", "andy"]
+
+
+
+What about methods?
+The sister object above contains a bunch of properties about my sister, but doesn't really say what my sister does. For instance, let's say my sister likes to paint. You might have a paintPicture() method that returns "Sarah paints a picture!" whenever you call it. The syntax for this is pretty much exactly the same as how you defined the properties of the object. The only difference is, the value in the key:value pair will be a function.
+var sister = {
+
+
+
+var sister = {
+  name: "Sarah",
+  age: 23,
+  parents: [ "alice", "andy" ],
+  siblings: ["julia"],
+  favoriteColor: "purple",
+  pets: true,
+  paintPicture: function() { return "Sarah paints!"; }
+};
+
+returns: "Sarah paints!"
+and you can access the name of my sister by accessing the name property:
+sister.name
+Returns: "Sarah"
+
+
+
+Given the following user object, what would you use to print the value of the email property
+
+var user = {
+  email: "user@example.com",
+  firstName: "first",
+  lastName: "last"
+};
+
+ANSWER:  use bracket or dot notation
+
+console.log(user.email);
+console.log(user["email"]);
+
+Select the piece of code that creates an object that describes a red Honda Civic:
+
+
+ANSWER:
+var car = {manufacture:"honda", model="civic",class:"compact",color:"red"};
+
+or
+var car = {color:"red", manufacture:"honda", model:"civic", class:"compact"};
+
+
+
+Option 1 and 3 both show the properties of the car as key: value pairs inside curly braces. The order the properties are listed in does not matter.
+Option 2 is setting variable values for the car, but isn't associating the values with a particular object.
+Option 4 is an array with the values describing the car. But, it's unclear what each value represents without the structure of object notation. What does "compact" mean for instance?
+
+
+Objects are one of the most important data structures in JavaScript. Get ready to see them everywhere!
+They have properties (information about the object) and methods (functions or capabilities the object has). Objects are an incredibly powerful data type and you will see them all over the place when working with JavaScript, or any other object-oriented programming language.
+Object literals, methods, and properties
+You can define objects using object-literal notation:
+
+
+ou can define objects using object-literal notation:
+var myObj = {
+  color: "orange",
+  shape: "sphere",
+  type: "food",
+  eat: function() { return "yummy" }
+};
+
+myObj.eat(); // method
+myObj.color; // property
+
+
+Naming conventions
+Feel free to use upper and lowercase numbers and letters, but don't start your property name with a number. You don't need to wrap the string in quotes! If it's a multi-word property, use camel case. Don't use hyphens in your property names
+
+
+var richard = {
+  "1stSon": true;
+  "loves-snow": true;
+};
+
+
+QUIZ
+Create a breakfast object to represent the following menu item:
+The Lumberjack - $9.95
+eggs, sausage, toast, hashbrowns, pancakes
+The object should contain properties for the name, price, and ingredients.
+
+
+var breakfast = {
+     name: "The Lumberjack", price:"$9.95", ingredients: ["eggs", "sausage", "toast", "hashbrowns", "pancakes"],
+
+};
+
+
+console.log(breakfast);
+
+
+
+Quiz
+Using the given object:
+
+add a printAccountSummary() method that returns the following account message:
+
+Welcome!
+Your balance is currently $1000 and your interest rate is 1%.
+
+
+var savingsAccount = {
+    balance: 1000,
+    interestRatePercent: 1,
+    deposit: function addMoney(amount) {
+        if (amount > 0) {
+            savingsAccount.balance += amount;
+        }
+    },
+    withdraw: function removeMoney(amount) {
+        var verifyBalance = savingsAccount.balance - amount;
+        if (amount > 0 && verifyBalance >= 0) {
+            savingsAccount.balance -= amount;
+        }
+    },
+    printAccountSummary: function SummaryAccountPrinting() {
+            return "Welcome!\nYour balance is currently $1000 and your interest rate is 1%.";
+};
+
+console.log(savingsAccount.printAccountSummary());
+
+
+Your code should have a variable savingsAccount
+The variable savingsAccount should be an object
+Your savingsAccount object should have a balance property
+Your savingsAccount object should have a interestRatePercent property
+Your savingsAccount object should have a printAccountSummary() method
+Your printAccountSummary() method should return the correct account message
+
+NEW CODE:
+
+
+printAccountSummary: function SummaryAccountPrinting() {
+
+        return "Welcome!\nYour balance is currently $1000 and your interest rate is 1%.";
+
+
+Quiz
+Using the object from the previous quiz, answer the following quiz question:
+
+Which of the following are valid ways to access properties and call methods from the savingsAccount object?
+
+
+var savingsAccount = {
+  balance: 1000,
+  interestRatePercent: 1,
+  deposit: function addMoney(amount) {
+    if (amount > 0) {
+      savingsAccount.balance += amount;
+    }
+  },
+  withdraw: function removeMoney(amount) {
+    var verifyBalance = savingsAccount.balance - amount;
+    if (amount > 0 && verifyBalance >= 0) {
+      savingsAccount.balance -= amount;
+    }
+  }
+};
+
+quiz -
+
+Directions:
+Create an object called facebookProfile. The object should have 3 properties:
+your name
+the number of friends you have, and
+an array of messages you've posted (as strings)
+The object should also have 4 methods:
+postMessage(message) - adds a new message string to the array
+deleteMessage(index) - removes the message corresponding to the index provided
+addFriend() - increases the friend count by 1
+removeFriend() - decreases the friend count by 1
+
+
+ANSDWER
+
+/*
+ * Programming Quiz: Facebook Friends (7-5)
+ */
+
+// your code goes here
+var facebookProfile = {
+
+    name: "Michele Novack",
+    friends: 33,
+    messages: ["Hi Their!", "Greetings!", "Good Night!"],
+
+    postMessage: function(message) {
+
+        return facebookProfile.messages.push(message);
+
+    },
+
+    deleteMessage: function(index) {
+
+        return facebookProfile.messages.splice(index,1);
+
+    },
+
+    addFriend: function() {
+
+
+
+
+What Went Well
+Your code should have a variable facebookProfile
+The variable facebookProfile should be an object
+Your facebookProfile object should have a name property
+Your facebookProfile object should have a friends property
+Your facebookProfile object should have a messages property
+Your object's name property should be string
+Your object's friends property should be a number
+Your object's messages property should be an array
+Your facebookProfile object should have a postMessage() method
+Your facebookProfile object should have a deleteMessage() method
+Your facebookProfile object should have a addFriend() method
+Your facebookProfile object should have a removeFriend() method
+Your object's postMessage() method should add messages to the messages array
+Your object's deleteMessage() method should remove messages from the messages array
+Your object's addFriend() method should increment the friends variable
+Your object's removeFriend() method should decrement the friends variable
+
+
+Quiz
+Here is an array of donut objects.
+
+se the forEach() method to loop over the array and print out the following donut summaries using console.log.
+
+Jelly donuts cost $1.22 each
+Chocolate donuts cost $2.45 each
+Cider donuts cost $1.59 each
+Boston Cream donuts cost $5.99 each
+
+var donuts = [
+  { type: "Jelly", cost: 1.22 },
+  { type: "Chocolate", cost: 2.45 },
+  { type: "Cider", cost: 1.59 },
+  { type: "Boston Cream", cost: 5.99 }
+];
+// your code goes here
+
+donuts.forEach (function(summaries) {
+
+  console.log(summaries.type + " donuts cost $"+ summaries.cost + " each");
+
+});
+
+Quiz MURDER
+
+For this quiz, you're going to help solve a fictitious murder mystery that happened here at Udacity! A murder mystery is a game typically played at parties wherein one of the partygoers is secretly, and unknowingly, playing a murderer, and the other attendees must determine who among them is the criminal. It's a classic case of whodunnit.
+Since this might be your first time playing a murder mystery, we've simplified things quite a bit to make it easier. Here's what we know! In this murder mystery there are:
+four rooms: the ballroom, gallery, billiards room, and dining room,
+four weapons: poison, a trophy, a pool stick, and a knife,
+and four suspects: Mr. Parkes, Ms. Van Cleve, Mrs. Sparr, and Mr. Kalehoff.
+We also know that each weapon corresponds to a particular room, so...
+the poison belongs to the ballroom,
+the trophy belongs to the gallery,
+the pool stick belongs to the billiards room,
+and the knife belongs to the dining room.
+And we know that each suspect was located in a specific room at the time of the murder.
+Mr. Parkes was located in the dining room.
+Ms. Van Cleve was located in the gallery.
+Mrs. Sparr was located in the billiards room.
+Mr. Kalehoff was located in the ballroom.
+To help solve this mystery, write a combination of conditional statements that:
+sets the value of weapon based on the room and
+sets the value of solved to true if the value of room matches the suspect's room
+Afterwards, use this template to print a message to the console if the mystery was solved:
+__________ did it in the __________ with the __________!
+What goes into the three blank spaces? You can fill in the blanks with the name of the suspect, the room, and the weapon! For example, an output string may look like:
+Mr. Parkes did it in the dining room with the knife!
+Be sure to watch out for any extra or missing characters (including spaces and punctuation marks) in your output string as well!
+ANSWER:
+
+
+/*
+
+ * Programming Quiz: Murder Mystery (3-4)
+
+ */
+
+
+
+// change the value of `room` and `suspect` to test your code
+
+var room = "dining room";
+
+var suspect = "Mr. Parkes";
+
+
+
+var weapon = "";
+
+var solved = false;
+
+
+
+if (room === "ballroom" && suspect === "Mr. Kalehoff") {
+
+    weapon = "poison"; solved = true;
+
+} else if (room === "gallery" && suspect === "Ms. Van Cleve") {
+
+    weapon = "trophy"; solved = true;
+
+} else if (room === "billiards room" && suspect === "Mrs. Sparr") {
+
+    weapon = "pool stick"; solved = true;
+
+} else {
+
+    weapon = "knife"; solved = true;
+
+}
+
+
+
+if (solved) {
+
+	console.log(suspect + " did it in the " + room + " with the " + weapon + "!");
+
+}
+
+
+Here’s the logical expression used to represent Julia’s weekend plans:
+
+ar colt = "not busy";
+var weather = "nice";
+
+if (colt === "not busy" && weather === "nice") {
+  console.log("go to the park");
+}
+
+Prints: "go to the park"
+
+Notice the && in the code above.
+The && symbol is the logical AND operator, and it is used to combine two logical expressions into one larger logical expression. If both smaller expressions are true, then the entire expression evaluates to true. If either one of the smaller expressions is false, then the whole logical expression is false.
+Another way to think about it is when the && operator is placed between the two statements, the code literally reads, "if Colt is not busy AND the weather is nice, then go to the park".
+
+Logical expressions are similar to mathematical expressions, except logical expressions evaluate to either true or false.
+
+11 != 12  Returns: true
+
+You’ve already seen logical expressions when you write comparisons. A comparison is just a simple logical expression.
+Similar to mathematical expressions that use +, -, *, / and %, there are logical operators &&, || and ! that you can use to create more complex logical expressions.
+
+Logical operators
+Logical operators can be used in conjunction with boolean values (true and false) to create complex logical expressions.
+By combining two boolean values together with a logical operator, you create a logical expression that returns another boolean value. Here’s a table describing the different logical operators:
+
+&&
+Logical AND
+value1 && value2
+Returns true if both value1 and value2 evaluate to true.
+||
+Logical OR
+value1 || value2
+Returns true if either value1 or value2 (or even both!) evaluates to true.
+!
+Logical NOT
+!value1
+Returns the opposite of value1. If value1 is true, then !value1 is false.
+
+TIP: Logical expressions are evaluated from left to right. Similar to mathematical expressions, logical expressions can also use parentheses to signify parts of the expression that should be evaluated first.
+
+Quiz
+What value of [BLANK] would make the following expression evaluate to false. Notice the ! right at the beginning!
+
+!([BLANK] === 4) && "STRing" === "STRing"
+
+THE ANSWER 4
+
+Nice work! The right side of && in the expression evaluates to true, so to make the entire expression evaluate to false, you need the left side of && to evaluate to false.
+
+quiz
+Select the operator that would make the following expression evaluate to true.
+
+3 < -10 [BLANK] "James" !== "james"
+
+Returns: true
+Nice! The answer is ||
+
+Evaluate the following logical expressions. Check the ones that evaluate to true.
+
+
+
+Truth tables are used to represent the result of all the possible combinations of inputs in a logical expression. A represents the boolean value on the left-side of the expression and B represents the boolean value on the right-side of the expression.
+Truth tables can be helpful for visualizing the different outcomes from a logical expression. However, do you notice anything peculiar about the truth tables for logical AND and OR?
+
+In both tables, there are specific scenarios where regardless of the value of B, the value of A is enough to satisfy the condition.
+For example, if you look at A AND B, if A is false, then regardless of the value B, the total expression will always evaluate to false because both A and B must be true in order for the entire expression to be true.
+This behavior is called short-circuiting because it describes the event when later arguments in a logical expression are not considered because the first argument already satisfies the condition.
+
+
+QUIZED checking verifyBalance
+Using the flowchart below, write the code to represent checking your balance at the ATM. The yellow diamonds represent conditional statements and the blue rectangles with rounded corners represent what should be printed to the console.
+
+
+Use the following variables in your solution:
+balance - the account balance
+isActive - if account is active
+checkBalance - if you want to check balance
+Hint: The variable balance could be a value less than, greater than, or equal to 0. The variables isActive and checkBalance are booleans that can be set to true or false.
+TIP: To print out the account balance with decimal points (i.e. 325.00), use the .toFixed() method and pass it the number of decimal points you want to use. For example, balance.toFixed(2) returns 325.00.
+
+TIP: Make sure to test your code with different values. For example,
+
+If checkBalance equals true and isActive equals false, then Your account is no longer active. should be printed to the console.
+
+/*
+ * Programming Quiz - Checking Your Balance (3-5)
+ */
+
+// change the values of `balance`, `checkBalance`, and `isActive` to test your code
+var balance = -100.00;
+var checkBalance = true;
+var isActive = true;
+
+// your code goes here
+//first check to see if the account is active
+
+if (!checkBalance) {
+    console.log("Thank you. Have a nice day!");
+
+    } else if (isActive === true && balance > 0) {
+    console.log("Your balance is $" + balance + ".");
+
+    } else if (!isActive) {
+        console.log("Your account is no longer active.");
+
+    } else if (isActive === true && balance === 0) {
+            console.log("Your account is empty.");
+            } else {
+                console.log("Your balance is negative. Please contact bank.");
+              };
+
+
+  QUIZ ICE Cream
+  Directions:
+Ice cream is one of the most versatile desserts on the planet because it can be done up so many different ways. Using logical operators, write a series of complex logical expressions that prints only if the following conditions are true:
+if flavor is set to vanilla or chocolate and
+if vessel is set to cone or bowl and
+if toppings is set to sprinkles or peanuts
+
+If the above conditions are true, then print out:
+I'd like two scoops of __________ ice cream in a __________ with __________.
+
+Fill in the blanks with the flavor of the ice cream, vessel, and toppings. For example,
+
+I'd like two scoops of vanilla ice cream in a cone with peanuts.
+
+TIP: Make sure to test your code with different values. For example,
+
+If flavor equals "chocolate", vessel equals "cone" and toppings equals "sprinkles", then "I'd like two scoops of chocolate ice cream in a cone with sprinkles." should be printed to the console.
+\
+
+ANSWER:
+
+/*
+ * Programming Quiz: Ice Cream (3-6)
+ *
+ * Write a single if statement that logs out the message:
+ *
+ * "Checking Your Balance __________ ice cream in a __________ with __________."
+ *
+ * ...only if:
+ *   - flavor is "vanilla" or "chocolate"
+ *   - vessel is "cone" or "bowl"
+ *   - toppings is "sprinkles" or "peanuts"
+ *
+ * We're only testing the if statement and your boolean operators.
+ * It's okay if the output string doesn't match exactly.
+ */
+
+// change the values of `flavor`, `vessel`, and `toppings` to test your code
+var flavor = "vanilla";
+var vessel = "cone";
+var toppings = "sprinkles";
+
+// Add your code here
+
+if((flavor === "vanilla" || flavor === "chocolate") && (vessel === "cone" || vessel === "bowl") && (toppings === "sprinkles" || toppings === "peanuts")){
+        console.log("I'd like two scoops of " + flavor + " ice cream in a " + vessel + " with " + toppings + ".");
+}
+
+
+Quiz
+
+Directions:
+Use the sizing chart above, create a series of logical expressions that prints the size of a t-shirt based on the measurements of shirtWidth, shirtLength, and shirtSleeve. Valid sizes include S, M, L, XL, 2XL, and 3XL.
+For example, if...
+
+var shirtWidth = 23; // size L (large)
+var shirtLength = 30; // size L (large)
+var shirtSleeve = 8.71; // size L (large)
+
+Then print L to the console.
+Hint: You will need to compare a range of values when checking for shirtWidth, shirtLength, and shirtSleeve. For example, if the shirt's width is at least 20", but no more than 22", then the t-shirt should be medium (M) — as long as the other values for the shirt's length and sleeve measurements match up.
+
+If shirtWidth, shirtLength, and shirtSleeve don't fit within the range of acceptable values for a specific size, then print N/A to the console. For example, if...
+
+var shirtWidth = 18; // size S (small)
+var shirtLength = 29; // size M (medium)
+var shirtSleeve = 8.47; // size M (medium)
+
+Then print N/A to the console because the measurements don't all match up with one particular size.
+
+TIP: Make sure to test your code with different values. For example,
+
+If shirtWidth equals 19, shirtLength equals 28 and shirtSleeve equals 8.21, then S should be printed to the console.
+If shirtWidth equals 26, shirtLength equals 33 and shirtSleeve equals 9.63, then 2XL should be printed to the console.
+If shirtWidth equals 18, shirtLength equals 29 and shirtSleeve equals 8.47, then N/A should be printed to the console.
+
+
+answering
+
+if ((shirtWidth >= 18 && shirtWidth < 20)
+
+    && (shirtLength >= 28 && shirtLength < 29)
+
+    && (shirtSleeve >= 8.13 && shirtSleeve < 8.38)) {
+
+        console.log("S");
+
+} else if ((shirtWidth >= 20 && shirtWidth < 22)
+
+    && (shirtLength >= 29 && shirtLength < 30)
+
+    && (shirtSleeve >= 8.38 && shirtSleeve < 8.63)) {
+
+        console.log("M");
+
+} else if ((shirtWidth >= 22 && shirtWidth < 24)
+
+    && (shirtLength >= 30 && shirtLength < 31)
+
+    && (shirtSleeve >= 8.63 && shirtSleeve < 8.88)) {
+
+        console.log("L");
+
+} else if ((shirtWidth >= 24 && shirtWidth < 26)
+
+    && (shirtLength >= 31 && shirtLength < 33)
+
+    && (shirtSleeve >= 8.88 && shirtSleeve < 9.63)) {
+
+        console.log("XL");
+
+} else if ((shirtWidth >= 26 && shirtWidth < 28)
+
+    && (shirtLength >= 33 && shirtLength < 34)
+
+    && (shirtSleeve >= 9.63 && shirtSleeve < 10.13)) {
+
+        console.log("2XL");
+
+} else if ((shirtWidth >= 28 && shirtWidth < 30)
+
+    && (shirtLength >= 34 && shirtLength < 35)
+
+    && (shirtSleeve >= 10.13 && shirtSleeve < 10.63)) {
+
+        console.log("3XL");
+
+} else {
+
+    console.log("N/A");
+
+}
+
+
+
+
+Truthy and Falsy
+Every value in JavaScript has an inherent boolean value. When that value is evaluated in the context of a boolean expression, the value will be transformed into that inherent boolean value.
+The paragraph above is pretty dense with information. You should probably re-read it again! ☝️
+Falsy values
+A value is falsy if it converts to false when evaluated in a boolean context. For example, an empty String "" is falsy because, "" evaluates to false. You already know if...else statements, so let's use them to test the truthy-ness of "".
+
+if ("") {
+    console.log("the value is truthy");
+} else {
+    console.log("the value is falsy");
+}
+
+Returns: "the value is falsy"
+
+
+ere’s the list of all of the falsy values:
+the Boolean value false
+the null type
+the undefined type
+the number 0
+the empty string ""
+the odd value NaN (stands for "not a number", check out the NaN MDN article)
+That's right, there are only six falsy values in all of JavaScript!
+
+
+
+Truthy values
+A value is truthy if it converts to true when evaluated in a boolean context. For example, the number 1 is truthy because, 1 evaluates to true. Let's use an if...else statement again to test this out:
+
+
+if (1) {
+    console.log("the value is truthy");
+} else {
+    console.log("the value is falsy");
+}
+eturns: "the value is truthy"
+Here are some other examples of truthy values:
+
+true
+42
+"pizza"
+"0"
+"null"
+"undefined"
+{}
+[]
+
+Sometimes, you might find yourself with the following type of conditional.
+
+var isGoing = true;
+var color;
+
+if (isGoing) {
+  color = "green";
+} else {
+  color = "red";
+}
+
+console.log(color);
+
+
+
+Prints: "green"
+
+
+In this example, the variable color is being assigned to either "green" or "red" based on the value of isGoing. This code works, but it’s a rather lengthy way for assigning a value to a variable. Thankfully, in JavaScript there’s another way.
+TIP: Using if(isGoing) is the same as using if(isGoing === true). Alternatively, using if(!isGoing) is the same as using if(isGoing === false).
+
+
+
+Ternary operator
+The ternary operator provides you with a shortcut alternative for writing lengthy if...else statements.
+
+
+conditional ? (if condition is true) : (if condition is false)
+
+o use the ternary operator, first provide a conditional statement on the left-side of the ?. Then, between the ? and : write the code that would run if the condition is true and on the right-hand side of the : write the code that would run if the condition is false. For example, you can rewrite the example code above as
+
+var isGoing = true;
+var color = isGoing ? "green" : "red";
+console.log(color);
+
+Prints: "green"
+
+
+This code not only replaces the conditional, but it also handles the variable assignment for color.
+If you breakdown the code, the condition isGoing is placed on the left side of the ?. Then, the first expression, after the ?, is what will be run if the condition is true and the second expression after the, :, is what will be run if the condition is false.
+
+
+Quiz
+What will be printed to the console if the following code is run?
+
+var adult = true;
+var preorder = true;
+
+console.log("It costs $" + (adult ? "40.00" : "20.00") + " to attend the concert. Pick up your tickets at the " + (preorder ? "will call" : "gate") + ".");
+
+answering
+it cost $40.00 attent the concert. Pick up your tickets at the will call.
+
+
+Quiz
+From the smallest of creatures to the largest of animals, inevitably every living, breathing thing must ingest other organisms to survive. This means that all animals will fall within one of the three consumer-based categories based on the types of food that they eat.
+Animals that eat only plants are called herbivores
+Animals that eat only other animals are called carnivores
+Animals that eat both plants and animals are called omnivores
+Directions:
+Write a series of ternary statements that sets the variable category equal to:
+"herbivore" if an animal eats plants
+"carnivore" if an animal eats animals
+"omnivore" if an animal eats plants and animals
+undefined if an animal doesn't eat plants or animals
+Use the eatsPlants and eatsAnimals variables to test your code.
+TIP: Make sure to test your code with different values. For example,
+
+If eatsPlants equals true and eatsAnimals equals false, then herbivore should be printed to the console.
+
+ANSWERT
+
+/*
+ * Programming Quiz - Navigating the Food Chain (3-8)
+ *
+ * Use a series of ternary operator to set the category to one of the following:
+ *   - "herbivore" if an animal eats plants
+ *   - "carnivore" if an animal eats animals
+ *   - "omnivore" if an animal eats plants and animals
+ *   - undefined if an animal doesn't eat plants or animals
+ *
+ * Notes
+ *   - use the variables `eatsPlants` and `eatsAnimals` in your ternary expressions
+ *   - `if` statements aren't allowed ;-)
+ */
+
+// change the values of `eatsPlants` and `eatsAnimals` to test your code
+var eatsPlants = false;
+var eatsAnimals = true;
+
+// put your code below
+var category = eatsPlants ? (eatsAnimals ? "omnivore" : "herbivore") : (eatsAnimals ? "carnivore" : undefined);
+
+
+
+console.log(category);
+
+
+SWITCH SATEMENTS -  sometime create a falling through issues
+
+If you find yourself repeating else if statements in your code, where each condition is based on the same value, then it might be time to use a switch statement.
+
+if (option === 1) {
+  console.log("You selected option 1.");
+} else if (option === 2) {
+  console.log("You selected option 2.");
+} else if (option === 3) {
+  console.log("You selected option 3.");
+} else if (option === 4) {
+  console.log("You selected option 4.");
+} else if (option === 5) {
+  console.log("You selected option 5.");
+} else if (option === 6) {
+  console.log("You selected option 6.");
+}
+
+witch statement
+A switch statement is an another way to chain multiple else if statements that are based on the same value without using conditional statements. Instead, you just switch which piece of code is executed based on a value.
+
+switch (option) {
+  case 1:
+    console.log("You selected option 1.");
+  case 2:
+    console.log("You selected option 2.");
+  case 3:
+    console.log("You selected option 3.");
+  case 4:
+    console.log("You selected option 4.");
+  case 5:
+    console.log("You selected option 5.");
+  case 6:
+
+
+
+  Here, each else if statement (option === [value]) has been replaced with a case clause (case: [value]) and those clauses have been wrapped inside the switch statement.
+When the switch statement first evaluates, it looks for the first case clause whose expression evaluates to the same value as the result of the expression passed to the switch statement. Then, it transfers control to that case clause, executing the associated statements.
+So, if you set option equal to 3...
+
+var option = 3;
+
+switch (option) {
+  ...
+}
+
+
+Prints:
+You selected option 3.
+You selected option 4.
+You selected option 5.
+You selected option 6.
+
+
+Break statement
+The break statement can be used to terminate a switch statement and transfer control to the code following the terminated statement. By adding a break to each case clause, you fix the issue of the switch statement falling-through to other case clauses.
+var option = 3;
+
+
+ar option = 3;
+
+switch (option) {
+  case 1:
+    console.log("You selected option 1.");
+    break;
+  case 2:
+    console.log("You selected option 2.");
+    break;
+  case 3:
+    console.log("You selected option 3.");
+    break;
+  case 4:
+    console.log("You selected option 4.");
+    break; // technically, not needed
+   }
+
+   Quiz
+
+   What will be the result from the following switch statement?
+
+   var month = 2;
+
+switch(month) {
+  case 1:
+  case 3:
+  case 5:
+  case 7:
+  case 8:
+  case 10:
+  case 12:
+    days = 31;
+    break;
+  case 4:
+  case 6:
+  case 9:
+  case 11:
+    days = 30;
+    break;
+  case 2:
+    days = 28;
+}
+
+console.log("There are " + days + " days in this month.");
+
+ANSWER -
+there are 28 days in this month
+
+LEVERAGING FALLING THROUGH statementsIn some situations, you might want to leverage the "falling-through" behavior of switch statements to your advantage.
+For example, when your code follows a hierarchical-type structure.
+
+
+var tier = "nsfw deck";
+var output = "You’ll receive "
+
+switch (tier) {
+  case "deck of legends":
+    output += "a custom card, ";
+  case "collector's deck":
+    output += "a signed version of the Exploding Kittens deck, ";
+  case "nsfw deck":
+    output += "one copy of the NSFW (Not Safe for Work) Exploding Kittens card game and ";
+  default:
+    output += "one copy of the Exploding Kittens card game.";
+}
+
+console.log(output);
+
+Prints: You’ll receive one copy of the NSFW (Not Safe for Work) Exploding Kittens card game and one copy of the Exploding Kittens card game.
+
+
+In this example, based on the successful Exploding Kittens Kickstarter campaign (a hilarious card game created by Elan Lee), each successive tier builds on the next by adding more to the output. Without any break statements in the code, after the switch statement jumps to the "nsfw deck", it continues to fall-through until reaching the end of the switch statement.
+Also, notice the default case.
+
+var tier = "none";
+var output = "You’ll receive ";
+
+switch (tier) {
+  ...
+  default:
+    output += "one copy of the Exploding Kittens card game.";
+}
+
+console.log(output);
+
+
+rints: You’ll receive one copy of the Exploding Kittens card game.
+
+
+ou can add a default case to a switch statement and it will be executed when none of the values match the value of the switch expression.
+
+QUIZ
+
+If winner is equal to 3, then what will be output to the console
+
+var prize = "";
+
+switch (winner) {
+  case 1:
+    prize += "a trip for two to the Bahamas and ";
+  case 2:
+    prize += "a four piece furniture set.";
+    break;
+  case 3:
+    prize += "a smartwatch and ";
+  default:
+    prize += "tickets to the circus.";
+}
+
+console.log("You've won " + prize);
+
+ANSWERT
+You wond a smart watch and ticket to a circus
+
+
+Quiz
+2015, the U.S. Bureau of Labor Statistics conducted research to reveal how average salary is directly related to the number of years spent in school. In their findings, they found that people with:
+no high school diploma earned an average of $25,636/year,
+a high school diploma earned an average of $35,256/year,
+an Associate's degree earned an average of $41,496/year,
+a Bachelor's degree earned an average of $59,124/year,
+a Master's degree earned an average of $69,732/year,
+a Professional degree earned an average of $89,960/year,
+and a Doctoral degree earned an average of $84,396/year.
+NOTE: Wondering what the average salary would be for a person with a Nanodegree from Udacity? That's a hard question to answer, but that doesn't mean we haven't tried to quantify the value of our Nanodegrees. Read more about Nanodegrees from resident Udacity writer, Chris Watkins, here
+Directions:
+Write a switch statement to set the average salary of a person based on their type of completed education.
+
+DIRECTIONS
+Write a switch statement to set the average salary of a person based on their type of completed education.
+Afterwards, print the following to the console.
+
+In 2015, a person with __________ earned an average of __________/year.
+Fill in the blanks with the type of education and the expected average salary. Make sure to use correct grammar in your printed statement, and watch out for any extra or missing characters (including spaces and punctuation marks). For help, refer to the findings above.
+
+In 2015, a person with a Bachelor's degree earned an average of $59,124/year.
+
+TIP: To print out the average salary with commas (i.e. 59,124), use the toLocaleString() method and pass it the locale "en-US". For example, salary.toLocaleString("en-US").
+
+TIP: Make sure to test your code with different values. For example,
+
+If education equals "an Associate's degree", then the string"In 2015, a person with an Associate's degree earned an average of $41,496/year." should be printed to the console.
+
+
+ANSWERT
+switch (education) {
+
+  case "no high school diploma": salary = 25636;
+
+    break;
+
+  case "a high school diploma": salary = 35256;
+
+    break;
+
+  case "an Associate's degree": salary = 41496;
+
+    break;
+
+  case "a Bachelor's degree": salary = 59124;
+
+    break;
+
+  case "a Master's degree": salary = 69732;
+
+    break;
+
+  case "a Professional degree": salary = 89960;
+
+    break;
+
+  case "a Doctoral degree": salary = 84396;
+
+}
+
+
+
+console.log("In 2015, a person with " + education
+
+    + " earned an average of $" + salary.toLocaleString("en-US") + "/year.");
+
+
+    LOOPS
+
+
+    Parts of a While Loop
+There are many different kinds of loops, but they all essentially do the same thing: they repeat an action some number of times.
+Three main pieces of information that any loop should have are:
+When to start: The code that sets up the loop — defining the starting value of a variable for instance.
+When to stop: The logical condition to test whether the loop should continue.
+How to get to the next item: The incrementing or decrementing step — for example, x = x * 3 or x = x - 1
+Here's a basic while loop example that includes all three parts.
+
+Here's a basic while loop example that includes all three parts.
+
+var start = 0; // when to start
+while (start < 10) { // when to stop
+  console.log(start);
+  start = start + 2; // how to get to the next item
+}Prints:
+0
+2
+4
+6
+8
+If a loop is missing any of these three things, then you might find yourself in trouble. For instance, a missing stop condition can result in a loop that never ends!
+Don't run this code!
+
+while (true) {
+  console.log("true is never false, so I will never stop!");
+}
+
+If you did try to run that code in the console, you probably crashed your browser tab.
+WARNING: You’re probably reading this because you didn't heed our warnings about running that infinite loop in the console. If your browser tab has crashed or has become frozen/unresponsive, there are a couple ways to fix this. If you are using Firefox, the browser will popup a notification about your script being unresponsive, and will give you the option to kill the script (do that). If you're using Chrome, go to the taskbar and select Window > Task Manager. You can end the process for the particular tab you ran the script in through the task manager. If you’re not using Firefox or Chrome, download Firefox or Chrome ;).
+
+RUNNING THE CODE THE CORRECT WAY SO YOU DONT CRASH BROWNER
+
+Here's an example where a loop is missing how to get to the next item; the variable x is never incremented. x will remain 0 throughout the program, so the loop will never end.
+Don't run this code!
+
+var x = 0;
+
+while (x < 1) {
+  console.log('Oops! x is never incremented from 0, so i will ALWAYS be less than 1');
+}
+
+Quiz
+How many times will the while loop run?
+
+
+
+var x = 10;
+while (x <= 25) {
+  console.log('Printing out x = ' + x);
+  x = x + 2;
+}
+
+
+
+answer
+The loop will print out the values of x starting at x = 10, and increment x by 2 each time.
+1 → x = 10 "Printing out x = 10"
+2 → x = 12 "Printing out x = 12"
+3 → x = 14 "Printing out x = 14"
+4 → x = 16 "Printing out x = 16"
+5 → x = 18 "Printing out x = 18"
+6 → x = 20 "Printing out x = 20"
+7 → x = 22 "Printing out x = 22"
+8 → x = 24 "Printing out x = 24"
+9 → x = 26 (greater than 25! console.log will not print this)
+
+This loop prints out 8 times. You might notice 26 being returned at the end. After 24 is printed out, x is incremented by 2, so the value of x is 26, but the loop will check if 26 <= 25 (it's not) and will break out of the loop.
+
+
+QUIZ
+
+Here's a while loop that is supposed to print out the values of x from 0 to 5, but there's a bug. What is missing?
+
+while (x < 6) {
+  console.log('Printing out x = ' + x);
+}
+
+ANSWER
+
+x never increments
+x is never assigned a start value
+If the value of x were assigned to 0 (or any number less than 6!), this would result in an infinite loop. The value of x is undefined, so the while loop never executes.
+
+
+
+Quiz
+"Fizzbuzz" is a famous interview question used in programming interviews. It goes something like this:
+Loop through the numbers 1 to 100
+If the number is divisible by 3, print "Fizz"
+If the number is divisible by 5, print "Buzz"
+If the number is divisible by both 3 and 5, print "FizzBuzz"
+If the number is not divisible by 3 or 5, print the number
+TIP: A number x is divisible by a number y if the answer to x / y has a remainder of 0. For example, 10 is divisible by 2 because 10 / 2 = 5 with no remainder. You can check if a number is divisible by another number by checking if x % y === 0.
+We're going to have you program your own version of FizzBuzz called "JuliaJames" (yes, imaginative, right?) Keep in mind that in an interview, you would want to write efficient code with very little duplication. We don't want you to worry about that for this question. Just focus on practicing using loops.
+
+
+Directions:
+Write a while loop that:
+Loop through the numbers 1 to 20
+If the number is divisible by 3, print "Julia"
+If the number is divisible by 5, print "James"
+If the number is divisible by 3 and 5, print "JuliaJames"
+If the number is not divisible by 3 or 5, print the number
+Your Code:
+
+
+ANSWERT
+var x = 1;
+
+while (x <= 20 /* your stop condition goes here */) {
+    // check divisibility
+    if ((x % 3 === 0) && (x % 5 === 0)){
+        console.log("JuliaJames");
+    }
+    else if (x % 3 === 0){
+        console.log("Julia");
+    }
+    else if (x % 5 === 0){
+        console.log("James");
+    }
+
+    else {
+        console.log(x);
+    }
+    // print Julia, James, or JuliaJames
+    // increment x
+    x = x + 1;
+}
+
+
+Quiz
+Directions:
+Write a loop that prints out the following song. Starting at 99, and ending at 1 bottle.
+
+99 bottles of juice on the wall! 99 bottles of juice! Take one down, pass it around... 98 bottles of juice on the wall!
+98 bottles of juice on the wall! 98 bottles of juice! Take one down, pass it around... 97 bottles of juice on the wall!
+...
+2 bottles of juice on the wall! 2 bottles of juice! Take one down, pass it around... 1 bottle of juice on the wall!
+1 bottle of juice on the wall! 1 bottle of juice! Take one down, pass it around... 0 bottles of juice on the wall!
+
+
+Some Notes:
+Note the pluralization of the word "bottle" when you go from 2 bottles to 1 bottle.
+Your text editor may try to autocorrect your ellipses (...) to the ellipses character (…). Do not use the ellipses character for this quiz; use three consecutive periods instead.
+Your Code:
+
+
+ANSWERT
+
+
+var num = 99;
+
+
+
+while (num >= 1) {
+
+    // check value of num
+
+    // print lyrics using num
+
+    // don't forget to check pluralization on the last line!
+
+    // decrement num
+
+    if (num === 2) {
+
+        console.log("2 bottles of juice on the wall! 2 bottles of juice! Take one down, pass it around... 1 bottle of juice on the wall!");
+
+    }
+
+    else if (num > 1) {
+
+        console.log(num + " bottles of juice on the wall! " + num + " bottles of juice! Take one down, pass it around... " + (num-1) + " bottles of juice on the wall!");
+
+    }
+
+    else {
+
+        console.log("1 bottle of juice on the wall! 1 bottle of juice! Take one down, pass it around... 0 bottles of juice on the wall!");
+
+    }
+
+    num--;
+
+}
+
+
+Quiz
+NASA's countdown to launch includes checkpoints where NASA engineers complete certain technical tasks. During the final minute, NASA has 6 tasks to complete:
+Orbiter transfers from ground to internal power (T-50 seconds)
+Ground launch sequencer is go for auto sequence start (T-31 seconds)
+Activate launch pad sound suppression system (T-16 seconds)
+Activate main engine hydrogen burnoff system (T-10 seconds)
+Main engine start (T-6 seconds)
+Solid rocket booster ignition and liftoff! (T-0 seconds)
+NOTE: "T-50 seconds" read as "T-minus 50 seconds".
+Directions:
+Write a while loop that counts down from 60 seconds and:
+If there's a task being completed, it prints out the task
+If there is no task being completed, it prints out the time as T-x seconds
+Use the task and time descriptions described above.
+Your Code:
+
+YOUR OUTPUT SHOULD BE LIKE THIS
+T-60 seconds
+T-59 seconds
+T-58 seconds
+...
+T-51 seconds
+Orbiter transfers from ground to internal power
+T-49 seconds
+...
+T-3 seconds
+T-2 seconds
+T-1 seconds
+Solid rocket booster ignition and liftoff!
+
+ANSWERT
+
+var num = 60;
+
+while (num >=0){
+  if (num === 50) {
+    console.log("Orbiter transfers from ground to internal power");
+  }else if (num === 31) {
+    console.log("Ground launch sequencer is go for auto sequence start");
+  }else if (num === 16) {
+    console.log("Activate launch pad sound suppression system");
+  }else if (num === 10) {
+    console.log("Activate main engine hydrogen burnoff system");
+  }else if (num === 6) {
+    console.log ("Main engine start");
+  }else if (num === 0) {
+    console.log("Solid rocket booster ignition and liftoff!");
+  }else {
+    console.log("T-"+num+" seconds");
+  }
+  num--
+}
+
+
+
+FOR loops
+
+The for loop explicitly forces you to define the start point, stop point, and each step of the loop. In fact, you'll get an Uncaught SyntaxError: Unexpected token ) if you leave out any of the three required pieces.
+
+for ( start; stop; step ) {
+  // do this thing
+}
+
+Here's an example of a for loop that prints out the values from 0 to 5. Notice the semicolons separating the different statements of the for loop: var i = 0; i < 6; i = i + 1
+
+
+for (var i = 0; i < 6; i = i + 1) {
+  console.log("Printing out i = " + i);
+}
+
+
+Prints:
+Printing out i = 0
+Printing out i = 1
+Printing out i = 2
+Printing out i = 3
+Printing out i = 4
+Printing out i = 5
+
+
+NESTED loops
+
+Did you know you can also nest loops inside of each other? Paste this nested loop in your browser and take a look at what it prints out:
+
+Did you know you can also nest loops inside of each other? Paste this nested loop in your browser and take a look at what it prints out:
+
+Prints:
+0, 0
+0, 1
+0, 2
+1, 0
+1, 1
+1, 2
+2, 0
+2, 1
+2, 2
+3, 0
+3, 1
+3, 2
+4, 0
+4, 1
+4, 2
+
+Notice the order that the output is being displayed.
+For each value of x in the outer loop, the inner for loop executes completely. The outer loop starts with x = 0, and then the inner loop completes it's cycle with all values of y:
+
+x = 0 and y = 0, 1, 2 // corresponds to (0, 0), (0, 1), and (0, 2)
+
+Once the inner loop is done iterating over y, then the outer loop continues to the next value, x = 1, and the whole process begins again.
+
+x = 0 and y = 0, 1, 2 // (0, 0) (0, 1) and (0, 2)
+x = 1 and y = 0, 1, 2 // (1, 0) (1, 1) and (1, 2)
+x = 2 and y = 0, 1, 2 // (2, 0) (2, 1) and (2, 2)
+etc.
+
+E: Nested loops can be tricky at first. We will revisit them again in Lesson 6: Arrays.
+
+Quiz
+What will this loop print out?
+
+for (var i = 0; i <= 6; i = i + 2) {
+  console.log(i);
+}
+
+
+ANSWERT
+Nice work! The loop goes from 0 to 6, but skips every other value.
+
+0 + 2 = 2
+2 + 2 = 4
+4 + 2 = 6
+6 + 2 = 8 (8 > 6, so loop exits)
+
+
+Here is a summary of operators you've learned so far:
+
+x++ or ++x // same as x = x + 1
+x-- or --x // same as x = x - 1
+x += 3 // same as x = x + 3
+x -= 6 // same as x = x - 6
+x *= 2 // same as x = x * 2
+x /= 5 // same as x = x / 5
+
+Quiz
+Rewrite the following while loop as a for loop:
+
+var x = 9;
+while (x >= 1) {
+  console.log("hello " + x);
+  x = x - 1;
+}
+
+ANSWER
+
+// rewrite the while loop as a for loop
+
+/*var x = 9;
+
+*while (x >= 1) {
+
+*    console.log("hello " + x);
+
+*    x = x - 1;
+
+*}
+
+*/
+
+for (var x =9; x >= 1; x = x -1) {
+
+    console.log("hello " + x);
+
+}
+
+Quiz
+
+Here is a for loop that's supposed to print the numbers 5 through 9. Fix the error!
+
+for (x < 10; x++) {
+  console.log(x);
+}
+
+
+ANSWER
+
+for (var x = 5; x < 10; x++) {
+    console.log(x);
+}
+
+
+QUIZ
+The for loop below has an error. Fix it!

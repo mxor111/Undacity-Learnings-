@@ -1,0 +1,13 @@
+h1 {font-family: "Palatino"
+}
+
+p {font-family: "Cursive"}
+<link rel="stylesheet" href="fonts_style.css">
+
+h1 {
+  font: italic 28pt Impact, "Franklin Gothic Bold", "Arial Black", sans-serif;
+}
+
+p {
+  font: bold 16pt Consolas, "Courier New", Courier, monospace;
+}

@@ -1,0 +1,702 @@
+<!DOCTYPE HTML>
+
+html
+
+<h1>local and global scopes</h1>
+
+<p>The assignment statement jack = turtle.Turtle() is inside the function, so jack is a local variable. That means it isn't defined outside the function, so when Python tries to run jack.penup(), it does not know what jack refers to.
+</p>
+<p>mport turtle
+
+def draw_square():
+    jack = turtle.Turtle()
+    jack.color("yellow")
+    for side in range(4):
+        jack.forward(100)
+        jack.right(90)
+
+draw_square()
+jack.penup()
+jack.back(100) - because this is variable jack = turtle.Turtle() is inside the DEF function it does not recognize it
+if you add these lines to the DEF function then it will but_still_works
+the turtle will draw the square then back up 100 pixels
+<title>indentiation</title>
+<p> Python uses the indentation of your code to determine its structure. For example, there's a big difference between these two blocks of code:
+</p>
+<p> understanding your indentation is import it will decide if a line is apart
+  pf the loop or not - so example below
+
+  for side in [25, 50. 25. 50]:
+    t.forward(side)
+    t.right(90)
+
+  for side in [25, 50, 25, 50]
+    t.forward(side)
+  t.right(90) -  the difference here is that whether this is part of the loop or not.
+</p>
+
+<p>
+  The difference is in whether the line t.right(90) is part of the loop or not. In the first case, it is; so the turtle will draw a rectangle. In the second case, it isn't; so the turtle will just keep going forward four times and only turn right at the very end.
+Some indentation mistakes will cause Python to give an error message (as you'll see in a minute). Others (like having a line outside of a loop when you meant for it to be inside of a loop) won't throw an error—instead, they'll simply cause the code to do something you didn't expect!</p>
+<p>
+  import turtle
+
+# This code doesn't work!
+# The indentation is broken.
+# Fix it!
+def balloon(t, color):
+    t.speed(0)
+    t.color(color)
+
+    # Draw balloon body.
+    for side in range(30):
+        t.forward(10)
+        t.left(12)
+
+    # Draw balloon knot.
+    t.right(60)
+    for side in range(3):
+        t.forward(10)
+        t.right(120)
+
+    # Draw balloon string.
+    t.color("gray")
+    t.right(30)
+    t.forward(100)
+
+
+t = turtle.Turtle()
+
+t.penup()
+t.back(100)
+t.pendown()
+balloon(t, "red")
+
+t.penup()
+t.home()
+t.pendown()
+balloon(t, "blue")
+
+t.penup()
+t.home()
+t.forward(100)
+t.pendown()
+balloon(t, "purple")
+
+t.hideturtle()
+
+this make ballons</p>
+
+<h1>passing data types to the wrong function</h1>
+</p>As you can see, when we pass arguments to a function, those arguments can have different data types. Some arguments may be strings, while others may be integers, or lists (or something else!). If we pass one of the function's parameters the wrong data type, this can cause problems (like we saw above).
+(In this case, the data types were wrong because the arguments were in the wrong order.)
+It's important to be able to look at the parameters of a function and figure out what data types they require—and then pass that function arguments that are of the correct data type (and in the right order).</p>
+<p> which one will run correctly
+  def star(a, b, c):
+      d = turtle.Turtle()
+      d.color(a)
+      for e in range(b):
+          d.forward(c)
+          d.right(720 / b)
+
+function call would be star("red", 5, 100) -The parameter a is being used as a turtle color, so it needs input in the form of a string, like "red". b is a number of sides, and c is a length—so both of those need integers.
+</p>When a function has three parameters :
+
+ou can tell because the who parameter is used with turtle methods such as who.forward, and the angle and distance parameters are passed to methods that expect a number
+
+def waggle(who, angle, distance):
+    who.forward(distance)
+    who.right(angle)
+    who.forward(distance)
+    who.left(angle)
+    who.forward(distance)
+
+Who is the method function
+distance is the interger
+angle is the interger
+
+In the exercise above, you might have found it a little surprising that the who parameter needs to be passed a turtle. Yes, we can pass a turtle to a function as one of the arguments! But wait, what does that even mean? And why would it be useful?</p>
+
+<h3>Variables connect names to data</h3>
+<p>Back in the last lesson, we talked a lot about variables. We said that a variable is really just a connection between a name in your code and some data in memory. Like when we run this line ...
+</p>
+<p> this creates a new turtle data object, and then assigns it to the name romeo. That means anytime we use romeo in our code, Python will understand that we are referring to the turtle object we created.
+But because all of this is invisible to you (since it's happening inside your computer) it can be a little unclear what exactly is happening. Let's explore it a little.</p>
+
+<title> Create two different turtle object</title>
+<p>
+import turtle
+romeo = turtle.Turtle()
+juliet = turtle.Turtle()
+ach time you run turtle.Turtle(), this creates a new turtle object in memory. So this code creates two separate turtle object
+</p>
+
+<p>
+romeo.color("red")
+romeo.width(5)
+
+It's good to pause and try to imagine how a line like romeo.color("red") works. We use the variable name, romeo, to tell Python that we want to do something with a particular data object. In this case, romeo refers to a turtle object.
+And because this is a turtle object, it contains a method called color, which is used to set the turtle's drawing color. So we can use .color() to call the method that's on the romeo object and pass it the argument "red".
+In sum, we can say that the line romeo.color("red") is calling the color method on the turtle object that the variable name romeo refers to. Whew, that's a real mouthful! No wonder it's often hard to understand what programmers are talking about ...</p>
+
+<p>what will happen when we run this :
+  import turtle
+romeo = turtle.Turtle()
+juliet = turtle.Turtle()
+
+romeo.color("red")
+romeo.width(5)
+
+juliet.color("white")
+juliet.width(5)
+
+romeo.forward(100)
+juliet.forward(100)
+
+you ' get two different turtle object one white and one red</p>
+
+<p>drawing two different turtles: this will create two seperate lines - at different angles
+
+  import turtle
+
+romeo = turtle.Turtle()
+juliet = turtle.Turtle()
+
+romeo.color("magenta")
+romeo.width(10)
+
+juliet.color("yellow")
+juliet.width(5)
+
+
+romeo.forward(100)
+romeo.right(120)
+romeo.forward(80)
+
+juliet.forward(80)
+juliet.right(90)
+juliet.forward(120)
+
+</p>assigning two different turtle object at same tume
+
+import turtle
+romeo = turtle.Turtle()
+montague = romeo
+
+The line montague = romeo is taking the turtle object that romeo refers to, and assigning it to montague as well. It's OK for an object to have more than one name. (Weird, right?)
+In the code above, we have the familiar assignment statement, romeo = turtle.Turtle(), which creates a new turtle object and names it romeo.
+But then we have a second assignment statement: montague = romeo. Remember, romeo refers to a turtle object. So this line is simply giving that turtle object a second name, montague.
+</p>
+
+<p>
+  import turtle
+romeo = turtle.Turtle()
+montague = romeo
+
+montague.color("white")
+romeo.color("red")
+
+montague.forward(100)
+the turtle will draw red - because the second
+remember, montague and romeo are just two different names that are referring to the same turtle object. Although we first set the object's color to white, we then later set it to red.
+</p>
+
+<p>
+  import turtle
+
+def draw_square(some_turtle):
+    for side in range(4):
+        some_turtle.forward(100)
+        some_turtle.right(90)
+
+romeo = turtle.Turtle()
+romeo.color("violet")
+romeo.speed(8)
+for petal in range(60):
+    draw_square(romeo)
+    romeo.forward(petal)
+    romeo.right(60)
+
+romeo.hideturtle()
+This will draw petal 0 it will draw (4) sides to the petal
+it will then loop (60) times the petal
+assigning and attribute of romeo - we are telling it what colors
+and speed
+</p>create a flower function call
+
+for petal in range(6):
+    draw_square(romeo)
+    romeo.right(60)
+romeo.hideturtle()
+
+this is what it would look Like
+import turtle
+
+romeo = turtle.Turtle()
+romeo.color("violet")
+romeo.speed(8)
+
+def draw_square(some_turtle):
+    for side in range(4):
+        some_turtle.forward(100)
+        some_turtle.right(90)
+
+def draw_flower(some_turtle):
+    for petal in range(6):
+        draw_square(some_turtle)
+        some_turtle.right(60)
+    some_turtle.hideturtle()
+
+draw_flower(romeo)
+
+or you can add some_turtle.forward(petal) change the range to how many time it would loop and get multipe
+import turtle
+
+romeo = turtle.Turtle()
+romeo.color("violet")
+romeo.speed(8)
+
+def draw_square(some_turtle):
+    for side in range(4):
+        some_turtle.forward(100)
+        some_turtle.right(90)
+
+def draw_flower(some_turtle):
+    for petal in range(30): by changing the number it will loop
+        draw_square(some_turtle)
+        some_turtle.forward(petal)  - by changing this
+        some_turtle.right(60)
+    some_turtle.hideturtle()
+
+
+draw_flower(romeo)
+
+</p>
+
+<title>functions calling functions</title>
+<p>import turtle
+
+romeo = turtle.Turtle()
+romeo.color("violet")
+romeo.speed(8)
+
+def draw_square(some_turtle):
+    for side in range(4):
+        some_turtle.forward(100)
+        some_turtle.right(90)
+
+def draw_flower(some_turtle):
+    for petal in range(30):
+        draw_square(some_turtle) -- by adding this we are telling it to call the function from what was deined in draw_saure function above
+        some_turtle.forward(petal)
+        some_turtle.right(60) -this is the anlge if you change to 90 it would draw boxes instead
+    some_turtle.hideturtle()
+
+draw_flower(romeo) -by adding this we are telling them to pull romeo methods
+</p><strong>This is a very common thing that you'll see in programming. In fact, some programs are made up almost entirely of functions that call functions that call yet more functions!</strong>
+This approach is common because it has significant advantages. For example, we could add more code to this program that uses the draw_square function for something else (other than drawing flowers). By separating different tasks into their own functions, you can make your code easier to use and more flexible.
+</p>
+<title>learning "if" statements - there condiditional statements
+What number gets assigned to the squids variable? And does this value match the one in the if statement</title>
+
+so when writing "if: statements"  it will assign a true or false condition once the loop arguments
+
+so if you have code :
+squids = 17
+becky = turtle.Turtle()
+becky.color("red")
+if squids == 42:
+    becky.color("blue")
+becky.width(5)
+
+ it will run red not blue because the
+
+ The squids variable has the value 17. This is isn't equal to 42, so the statement becky.color("blue") will not run.
+
+</p>
+<h3>drawing hearts</h3>
+<p>
+  mport turtle
+
+romeo = turtle.Turtle()
+juliet = turtle.Turtle()
+
+juliet.color("misty rose")
+juliet.width(3)
+
+romeo.color("violet")
+romeo.width(3)
+
+romeo_last_name = "montague"  - the word montague must match to the (if)statement
+
+romeo.left(40)
+romeo.forward(100)
+for side in range(185):
+    romeo.forward(1)
+    romeo.left(1)
+romeo.hideturtle()
+
+if romeo_last_name == "montague": - must match to the variable name for it to works
+    juliet.left(140)
+    juliet.forward(100)
+    for side in range(185):
+        juliet.forward(1)
+        juliet.right(1)
+    juliet.hideturtle()
+</p>
+<title> coniditionals in loops</title>
+<p>One of the nice things about loops is, of course, that they do the same thing over and over.
+But sometimes you don't want them to do exactly the same thing each time. For example, maybe you'd like a loop that draws lines to make a shape, but you'd like one of the sides on that shape to be a different colors
+
+We can get a result like this by using an if statement inside of the for loop.
+In fact, the technique of putting conditionals inside loops is useful for solving a wide range of problems, so it's something you'll see a lot of in programming. Let's look at some example.
+
+
+range(4) creates the sequence 0, 1, 2, 3. Thus, side will have the value 3 on the fourth time through the loop.
+
+<strong>The order of these statements makes a big difference!</strong>
+import turtle
+jack = turtle.Turtle()
+jack.color("yellow")
+
+for side in range(4):
+    jack.forward(100)
+    jack.right(90)
+    if side == 3:
+        jack.color("blue")
+  in this example- the whole square would be yellow, becuase it would not change the color to blue until after drawing the fourth side.
+</p>
+
+<p>
+  mport turtle
+jack = turtle.Turtle()
+jack.color("yellow")
+
+for side in range(4):
+    if side == 2:
+        jack.color("blue")
+    jack.forward(100)
+    jack.right(90)
+in this exmple it makes both the third and fourth sides blue -ry stepping through the loop yourself. On the third side, the color changes to blue. But is there anything that changes the color back to yellow for the fourth side?
+Once the color has been changed to blue (for the third side), there's no code that changes it back—so the color is still blue when it draws the fourth side.
+<em> there is no code for the fourth loop</em>
+<p>
+  import turtle
+  jack = turtle.Turtle()
+  jack.width(5)
+
+  jack.color("yellow")
+  for side in range(4):
+      if side == 2:
+          jack.color("blue") - adding a 2nd conditional statement change color
+      if side == 3:
+          jack.color("pink")
+      jack.forward(100)
+      jack.right(90)
+</p>
+<h2>if/else statements</h2>
+
+for side in range(4):
+    if side == 1:
+        jack.color("blue")
+    else:  #by adding this you can do the same as above changing the color
+        jack.color("yellow")
+    jack.forward(100)
+    jack.right(90)
+</p>
+
+<p> This is called an if/else statement, and it's a variation on the if statement. The way it works is that the condition side == 1 is checked, and if it's true, then the code under the if line will run; but if the condition is false, the code under the else line will run instead.
+You can think of this as saying, "If side is 1, then set the color to blue; otherwise, set the color to yellow."
+You will see a lot of if/else statements as you continue coding.</p>
+
+if code == "clever":
+    dance()
+else:
+    sigh()
+
+this statement below is different
+sigh()
+if code == "clever":
+    dance()
+    hey do different things. If the value of code is "clever", then the first piece of code will only dance(), whereas the second piece of code will sigh() and then dance().
+  </p>
+<h3>modulo</h3>
+For this whole modulo business to make sense, it helps to have a solid idea of how to do basic division with remainders . We don't want to get too deep into the math here (that's not the key point anyway), but let's try a few problems to make sure we've got the basics.
+
+<ol>
+  <li>For this whole modulo business to make sense, it helps to have a solid idea of how to do basic division with remainders . We don't want to get too deep into the math here (that's not the key point anyway), but let's try a few problems to make sure we've got the basics.</li>
+  <li>t may help to think of it like this: 7 is the same thing as 3 + 3 + 1. So there are 2 groups of 3, and 1 left over.</li>
+  <li>7 is the same as 3 + 3 + 1. So we can divide 7 into 2 groups of 3, and then we have 1 left over by itself (which we call the "remainder").</li>
+</ol>
+
+<p>
+  So, if you see something like 7 % 3 in a piece of code, how can you figure out the result that this will give? What number will this expression evaluate to?
+Here's one way of thinking about it:
+1. How many groups of 3 are in the number 7?
+Well, 7 is the same as 3 + 3 + 1. So there are two groups of 3. (Another way of asking this is, "How many times does 3 'go into' 7?")
+2. Once we have divided 7 up into as many groups of 3 as possible, what is remaining?
+In this case, 1 is left over. We cannot evenly divide 1 into any more groups of 3. So 1 is the remainder. Thus, the expression 7 % 3 will evaluate to the result 1.
+Want more help understanding remainders?
+If this is all making sense to you, great! But this stuff can be confusing, so if you find yourself scratching your head and want a more thorough explanation of division and remainders, check out this great video from our friends over at Khan Academy. They also have practice problems you can try out.</p>
+
+<p> examples and learning :
+  <ol>
+    <li> 3 % 2 - will result in (1) because how many times does two go into (3) only once therefore there is (1) left over.
+    </li>
+    <li> 1 % 5 - Well we can't divide 1 up into any groups of 5. so we have zero groups of 5, with the original 1 left over - the remainder is 1
+    </li>
+  </ol>
+</p>
+<p> more remainder-
+  <ol>
+    <li> 1 % 100 = 1
+      <li> 7 % 10 = 7</li>
+      <li> 2 % 5  = 2</li>
+      <li> 7 % 1000 = 7</li>
+    </li>
+  </ol>
+
+  Did you notice a consistent result there? If we have a % b and b is bigger, then the remainder will simply be a.
+For example:
+7 % 10 gives the result 7
+7 % 100 gives the result 7
+7 % 1000 gives the result 7
+In all of these cases, the number on the right is bigger, so we just end up with the number on the left as the result.
+</p>
+<p>
+  A common thing to do with the modulo operator is to use it with an increasing sequence of numbers. For example, we can do 1 % 5, then 2 % 5, then 3 % 5, and so on.
+It helps to see this for yourself. So here is an increasing sequence like that. See if you can match up each modulo operation with its result:
+
+<ul>
+  <li>0 % 3 = 0 - the remaider is zero because the right number is bigger</li>
+  n the above exercise, notice that the result counts up (0, 1, 2) , until the two numbers are the same (3 % 3), and then the result starts over at 0.
+  If we keep counting up, this pattern will just keep on repeating forever! Every time we get to a number that is evenly divisible by 3, the remainder will be 0, and we'll start over
+</li>
+</ul>
+ <ol>
+   <li>Again, did you see a pattern there? If the number can be divided evenly by 2, then there's no remainder—so we get 0 as the result.
+This table shows the values of x % 2 and x % 3 for different values of x. Check out how the values repeat, even though x is increasing:</li>
+</ol>
+</p>
+<p>
+  This statement:
+  <ol>
+    <li> x % 2</li>
+    <strong>And because every other number is even, x % 2 will alternate between 0 and 1.
+  </strong>
+</ol>
+</p>
+<p>Which of these statements is true about x % 3?
+  <li>regardless of what X is, x % 3 is always less than 3
+  </li>
+</p.>
+<p> As x increases, x % 60 counts from 0 up to 59. But when x reaches 60, we have 60 % 60, which has a remainder of 0. So that's where things reset and we start over at 0, just like the minute hand of a clock!
+</p>
+
+<title>understanding how it will read the loop</title>
+<p> in example below:
+  <li>
+    for n in range(12)
+     if n % 3 == 0:
+      draw_traingle()
+    else:
+     draw_square()</li>
+  <li> this is looking at what can be divided by #3
+  </li>
+  <li> this look will run 12 times. </li>
+  <li>when n is 0, 3, 6, 9 - because its looking what numbers can be divided by number 3</li>
+  <li>the result will be 0 zero</li>
+  <li>and that means the draw-triangle function will be called</li>
+  <li>when n is 1, 2, 4, 5, 7, 8, 10, 11 - because 3 does not divide evenly into these numbers</li>
+  <li>the the draw-square function will be called</li>
+</p>
+<p><strong> NOTICE THE REPEATING PATTERN</strong></p>
+
+<p>
+  <li># This program draws a string of beads.
+# Change it so that the beads' colors
+# alternate:  red, blue, red, blue ...
+
+import turtle
+
+def bead(tur):
+    tur.right(75)
+    for _ in range(12):
+        tur.forward(10)
+        tur.left(30)
+    tur.left(75)
+
+t = turtle.Turtle()
+t.speed(0)
+t.width(2)
+
+# Move to the left before starting.
+t.penup()
+t.back(200)
+t.pendown()
+
+# Draw ten beads.
+for n in range(10):
+    if n == 5: #### you are trying to put what number (10)can be divided 2
+      ## rewrite "if n % 2 == 0" -- this will alternate colors below
+        t.color("blue")
+    else:
+        t.color("red")
+    bead(t)
+    t.forward(40)
+
+</li>
+</p>
+<h2> Drawining Cross</h2>
+mport turtle
+tur = turtle.Turtle()
+tur.speed(0)
+tur.width(5)
+
+for n in range(15):
+  tur.forward(45)
+  if n % 3 == 0: #**changing this number will determine shape -
+  #if you change 3 to number 2 you get stairs -
+  #if you change 3 to number 6 you get square stairs
+    tur.color("magenta")
+    tur.left(90)
+  else:
+    tur.color("cyan")
+    tur.right(90)
+tur.hideturtle()
+
+drawing stairs
+mport turtle
+tur = turtle.Turtle()
+tur.speed(0)
+tur.width(5)
+
+for n in range(15):
+  tur.forward(45)
+  if n % 2 == 0: # if you change "0" your stairs go DOWN
+    tur.color("magenta")
+    tur.left(90)
+  else:
+    tur.color("cyan")
+    tur.right(90)
+tur.hideturtle()
+
+</p>
+<p>drawing circle with three different patterns
+  import turtle
+
+t = turtle.Turtle()
+t.width(15)
+t.speed(0)
+
+for n in range(20):
+    if n % 3 == 0:
+        t.color("blue")
+    if n % 3 == 1:
+        t.color("green")
+    if n % 3 == 2:
+        t.color("pink")
+    t.forward(50)
+    t.right(360/20)
+    t.hideturtle()
+</p>
+<h1>FIZZ BUZZ</h1>
+<ol>
+  <li>in order to write the fizz buzz code, we are going to need
+    someway of identifying it whether a number is evenly divisble by (3) or (5) (or niether)
+  </li>
+  <li>the trick is to use the modulo operator %. to see how That works,
+    let's tale the same numbers from exercise above and try doing % 3 on those numbers.
+  </li>
+  <li>In order to write the Fizz Buzz code, we are going to need some way of identifying whether a number is evenly divisible by 3 or 5 (or neither). How are we going to do that?
+The trick is to use the modulo operater %. To see how that works, let's take the same numbers from the exercise above, and try doing % 3 on those numbers. What results do you get for each?</li>
+  <li>3 % 3 = 0/ 4 %3 =1, 5 %3=2, 6%3=0, 15%3=0</li>
+  <li>if x % 3 == 0:
+    # Code here for whatever you want to do when numbers are evenly divisible by 3.</li>
+  <li>Whatever code you place inside this if statement will only get run when the number assigned to x is evenly divisible by 3. And of course, you can create a similar statement to check whether a number is divisible by 5.</li>
+</ol>
+
+<ul>
+  <li>if x % 5 == 0: - it going to buzz</li>
+  <li>if x % 3 == 0:
+    # Fizz
+else x % 5 == 0:
+    # Buzz</li>
+  <li>if x % 3 == 0:
+    # Fizz
+    if x % 5 == 0:
+        # Buzz</li>
+  <li>if x % 5 == 0:
+    # Buzz
+    if x % 3 == 0:
+        # Fizz</li>
+  <li>Notice that the last two options in the above exercise were both nested if statements. This is one way we can check for a number that is divisible by both 3 and 5:</li>
+  <li>First, we check if the number is divisible by 3. If it's not, then the whole structure gets skipped over (none of the code inside gets run!). But if the number is divisible by 3, then it will also check whether the number is divisible by 5.
+Nested statements are often difficult to wrap your brain around—so it's normal to struggle with these when you're first learning. But they do get easier with practice!</li>
+
+</ul>
+<o>
+  <li>
+    import turtle
+
+def fizz(tur):
+    # A red square bead.
+    tur.color("red")
+    tur.left(90)
+    for side in [10, 20, 20, 20, 10]:
+        tur.forward(side)
+        tur.right(90)
+
+def buzz(tur):
+    # A green hexagonal bead.
+    # Fits inside the red bead.
+    tur.color("green")
+    tur.left(60)
+    for side in range(6):
+        tur.forward(10)
+        tur.right(60)
+    tur.right(60)
+
+def plain(tur):
+    # A gray octagonal bead.
+    tur.color("gray")
+    tur.left(90)
+    for side in [4, 8, 8, 8, 8, 8, 8, 8, 4]:
+        tur.forward(side)
+        tur.right(45)
+    tur.right(45)
+
+# Set up the turtle to draw beads.
+t = turtle.Turtle()
+t.speed(0)
+t.width(2)
+t.penup()
+t.back(180)  # Back up to make room!
+t.pendown()
+
+for num in range(16):
+    # Change this code:
+    plain(t)
+
+    # Advance to the next bead spot.
+    t.color("gray")
+    t.forward(22)
+t.hideturtle()
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  '
